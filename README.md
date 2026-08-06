@@ -1,2 +1,57 @@
 # arge-tesvik-skills
-TÜBİTAK TEYDEB/ARDEB çağrı takibi, proje önerisi ön değerlendirme, patent ön araştırma ve 5746 mevzuat uyumu için Claude Code eklentisi. Unofficial — TÜBİTAK ile ilişkili değildir.
+
+Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten bir **Ar-Ge Teşvik & Proje Uzmanı**'nın işini destekleyen bir Claude Code eklentisi (`arge-tesvik`).
+
+Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https://www.tubitak.gov.tr)
+
+## Ne işe yarar
+
+Eklenti üç skill ve iki slash komutu içerir:
+
+| Skill | Ne yapar |
+|---|---|
+| `hakem-simulasyonu` | Bir TÜBİTAK proje önerisi taslağını panel hakemi gözüyle **eleştirir** (içerik üretmez). Endüstriyel Ar-Ge niteliği/yenilik, proje planı/yapılabilirlik ve — en ağırlıklı boyut olarak — ticarileşme potansiyeli üzerinden somut, gerekçeli zayıf noktalar ve düzeltme yönleri verir. Asla puan uydurmaz, asla kabul garantisi vermez. |
+| `cagri-tarama` | Açık TÜBİTAK çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001/3001) web'den tarar, son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti gibi sayısal değerleri hafızadan yazmaz, her zaman kaynaktan çeker ve kaynağı belirtir. |
+| `patent-on-arastirma` | `markapatent-mcp` sunucusu üzerinden TÜRKPATENT'te patent/marka/tasarım ön araştırması yapar, benzer başvuruları listeler. Sadece bulguları sunar — "bu fikir özgündür" gibi bir sonuca asla varmaz, karar insana aittir. |
+
+Slash komutları ilgili skill'i doğrudan tetikler:
+
+- `/arge-tesvik:degerlendir` → `hakem-simulasyonu`
+- `/arge-tesvik:tara` → `cagri-tarama`
+
+(Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır; bu eklentinin adı `arge-tesvik` olduğu için tam komut isimleri yukarıdaki gibidir. Kısaca `/degerlendir` ve `/tara` yazmak da, başka bir eklentiyle çakışmadığı sürece çalışır.)
+
+## Kurulum
+
+Bu depo hem plugin'i (`.claude-plugin/plugin.json`) hem de kendi kendini listeleyen bir marketplace'i (`.claude-plugin/marketplace.json`) içerir, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur.
+
+Claude Code içinde:
+
+```
+/plugin marketplace add ibrahim-isikli/arge-tesvik-skills
+/plugin install arge-tesvik@arge-tesvik-skills
+```
+
+veya yerelde geliştirirken/denerken:
+
+```
+claude --plugin-dir /path/to/arge-tesvik-skills
+```
+
+Kurulumdan sonra `/reload-plugins` gerekebilir (kurulum özeti bunu belirtir).
+
+## markapatent-mcp bağlantısı
+
+`patent-on-arastirma` skill'i, `plugin.json` içinde tanımlı uzak bir HTTP MCP sunucusuna (`https://markapatent-mcp.fastmcp.app/mcp`) bağımlıdır. Plugin etkinleştirildiğinde bu sunucu otomatik başlatılır/bağlanır; ilk kullanımda Claude Code sizden onay isteyebilir. Sunucunun kendisi bu eklentinin bir parçası değildir — TÜRKPATENT verisine erişimi markapatent tarafı sağlar.
+
+## references/ klasörü
+
+`references/` klasörü kasıtlı olarak boş gelir. TÜBİTAK'ın uygulama esasları, AGY101/AGY301 şablonları ve güncel çağrı metinleri gibi belgeler sık güncellendiği ve bu depoda yeniden dağıtılması uygun olmadığı için, bu belgeleri tubitak.gov.tr'den indirip kendiniz eklemeniz gerekir. Hangi dosyaların nereden indirileceği için `references/README.md`'ye bakın.
+
+## Zorunlu kurallar (tüm skill'lerde geçerli)
+
+Her skill, TÜBİTAK ÜYZ (üretken yapay zeka) Rehberi (Eylül 2025) kapsamında şu kurallara uyacak şekilde yazıldı:
+
+- **Gizlilik**: Ciro, bütçe detayı, yayınlanmamış teknik bilgi gibi hassas/gizli firma verileri araca girilmemeli; skill'ler kullanıcıyı bu konuda uyarır ve placeholder mantığıyla çalışır.
+- **Beyan zorunluluğu**: Proje önerisi hazırlanırken bir ÜYZ aracından önemli ölçüde faydalanıldıysa, bunun başvuruda beyan edilmesi gerektiğini her skill çıktısının sonunda hatırlatır.
+- **Nihai sorumluluk**: Başvurunun içeriğinden ve doğruluğundan nihai olarak başvuru sahibi sorumludur; hiçbir skill bu sorumluluğu üstlenmez.

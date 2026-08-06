@@ -1,0 +1,36 @@
+---
+name: cagri-tarama
+description: Açık TÜBİTAK TEYDEB/ARDEB çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001, 3001 vb.) web üzerinden tarar ve son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti, çağrı dönemi gibi sayısal değerleri asla hafızadan yazmaz, mutlaka güncel kaynaktan çeker ve kaynağı belirtir. Kullanıcı "açık çağrılar neler", "1501'in son başvuru tarihi ne zaman", "hangi TÜBİTAK çağrılarına başvurabilirim", "çağrı takvimi çıkar", "bütçe üst limiti kaç TL" gibi bir şey sorduğunda, ya da /arge:tara komutu çalıştırıldığında bu skill'i mutlaka kullan.
+---
+
+# Çağrı Tarama
+
+## Neden hafızadan yazmıyoruz
+
+TÜBİTAK çağrı takvimleri, bütçe üst limitleri ve başvuru koşulları sık güncellenir; senin eğitim verindeki bir rakam çoktan eskimiş olabilir. Kullanıcı bu bilgiye göre gerçek bir başvuru kararı verecek — yanlış bir bütçe üst limiti veya geçmiş bir son tarih söylemek doğrudan maddi zarara yol açabilir. Bu yüzden her sayısal değer taramadan gelmeli, hafızandan değil.
+
+## Nasıl çalış
+
+1. Aşağıdaki çağrı kodlarını tara: **1501, 1505, 1507, 1509, 1511, 1707** (TEYDEB) ve **1001, 3001** (ARDEB). Kullanıcı belirli bir alt küme istediyse sadece onları tara.
+2. Her çağrı için TÜBİTAK'ın kendi kaynaklarını (tubitak.gov.tr üzerindeki TEYDEB/ARDEB çağrı sayfaları) ara ve aç. Üçüncü taraf blog/danışmanlık sitelerini yalnızca resmi sayfayı bulamadığın durumda, açıkça "resmi olmayan kaynak" diye işaretleyerek kullan.
+3. Her çağrı için şunları çıkar: son başvuru tarihi, çağrının açık/kapalı olma durumu, bütçe üst limiti (varsa), ve kaynak URL.
+4. Bir değeri sayfada bulamıyorsan tahmin etme — "bulunamadı, kaynak: [URL]" yaz veya o hücreyi boş bırak.
+5. Sonuçları son başvuru tarihine göre artan sırada (en yakın tarih en üstte) bir tabloda sun.
+
+## Çıktı formatı
+
+Her zaman şu tabloyu kullan, açık çağrıları önce göster:
+
+```markdown
+| Çağrı | Son Başvuru Tarihi | Durum | Bütçe Üst Limiti | Kaynak |
+|---|---|---|---|---|
+| 1501 | ... | Açık | ... | [tubitak.gov.tr](...) |
+```
+
+Tablodan sonra, taramanın yapıldığı tarihi ve "bu bilgiler değişebilir, başvurudan önce resmi kaynaktan teyit edin" notunu ekle.
+
+## Zorunlu uyarı bloğu (çıktının sonuna ekle)
+
+1. **Gizli veri uyarısı** — TÜBİTAK ÜYZ Rehberi (Eylül 2025) kapsamında, bu taramayı bir başvuru taslağıyla birleştirirken ciro, bütçe detayı, yayınlanmamış teknik bilgi gibi hassas firma verilerini araca girmeyin; gerekirse placeholder kullanın.
+2. **ÜYZ beyan zorunluluğu** — Çağrı seçimi ve başvuru hazırlığında bir ÜYZ aracından önemli ölçüde faydalanıldıysa, bunun başvuruda beyan edilmesi gerektiğini hatırlatın.
+3. **Nihai sorumluluk** — Çağrı koşullarının doğruluğunu ve güncelliğini teyit etmek, nihai olarak başvuru sahibinin sorumluluğundadır; bu tarama sadece bir ön özet sağlar.

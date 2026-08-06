@@ -1,0 +1,14 @@
+{
+  "name": "arge-tesvik-skills",
+  "description": "Türkiye'deki Ar-Ge teşvik süreçleri için hakem simülasyonu, çağrı tarama ve patent ön araştırması skill'lerini sağlayan marketplace.",
+  "owner": {
+    "name": "İbrahim Işıklı"
+  },
+  "plugins": [
+    {
+      "name": "arge-tesvik",
+      "source": "./",
+      "description": "TÜBİTAK TEYDEB/ARDEB hakem simülasyonu, çağrı tarama ve patent ön araştırması. TÜBİTAK ile ilişkili değildir."
+    }
+  ]
+}
