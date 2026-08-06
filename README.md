@@ -52,9 +52,19 @@ claude --plugin-dir /path/to/arge-tesvik-skills
 
 ## Kullanım örneği
 
+### hakem-simulasyonu
+
 Kurulumdan sonra herhangi bir slash komutu yazmanıza da gerek yok — bir proje önerisi taslağı paylaşıp "hakem ne der?" demeniz `hakem-simulasyonu` skill'ini tetiklemeye yeter. Aşağıda gerçek bir taslakla yaptığım gerçek bir koşunun çıktısının ilk kısmı var (raporun tamamı üç boyutu, düzeltme önerilerini ve ÜYZ/beyan hatırlatmalarını da içerecek şekilde devam eder — GIF'te yer sınırlı olduğu için "..." ile kestim):
 
 ![Kullanım örneği: hakem-simulasyonu'na taslak paylaşıp kritik alma](./assets/kullanim-demo.gif)
+
+### cagri-tarama
+
+Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son başvuru tarihi ne zaman?" demeniz yeterli. Aşağıdaki GIF de gerçek bir koşudan alındı — tarihler, durumlar ve kaynaklar gerçek arama sonucundan birebir; sadece dar terminal genişliğine sığması için tablo yerine liste düzeninde gösterdim ve tam tabloyu (1001, 1505, 1707, 1511, 3001 dahil) "..." ile kestim:
+
+![Kullanım örneği: cagri-tarama ile açık TÜBİTAK çağrılarını sorgulama](./assets/cagri-tarama-demo.gif)
+
+**Önemli:** GIF'teki tarihler 6 Ağustos 2026'da yapılan gerçek bir taramanın sonucu — canlı/güncel değil, örnek olsun diye burada donmuş durumda. Skill her çalıştığında yeniden tarama yapar; kendi sorgunuzda güncel tarihleri göreceksiniz.
 
 ## markapatent-mcp bağlantısı
 
