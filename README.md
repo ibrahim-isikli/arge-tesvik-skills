@@ -50,6 +50,12 @@ Yerelde geliştirirken/denerken (marketplace/install adımları olmadan, doğrud
 claude --plugin-dir /path/to/arge-tesvik-skills
 ```
 
+## Kullanım örneği
+
+Kurulumdan sonra herhangi bir slash komutu yazmanıza da gerek yok — bir proje önerisi taslağı paylaşıp "hakem ne der?" demeniz `hakem-simulasyonu` skill'ini tetiklemeye yeter. Aşağıda gerçek bir taslakla yaptığım gerçek bir koşunun çıktısının ilk kısmı var (raporun tamamı üç boyutu, düzeltme önerilerini ve ÜYZ/beyan hatırlatmalarını da içerecek şekilde devam eder — GIF'te yer sınırlı olduğu için "..." ile kestim):
+
+![Kullanım örneği: hakem-simulasyonu'na taslak paylaşıp kritik alma](./assets/kullanim-demo.gif)
+
 ## markapatent-mcp bağlantısı
 
 `patent-on-arastirma` skill'i, `plugin.json` içinde tanımlı uzak bir HTTP MCP sunucusuna (`https://markapatent-mcp.fastmcp.app/mcp`) bağımlıdır. Plugin etkinleştirildiğinde bu sunucu otomatik başlatılır/bağlanır; ilk kullanımda Claude Code sizden onay isteyebilir. Sunucunun kendisi bu eklentinin bir parçası değildir — TÜRKPATENT verisine erişimi markapatent tarafı sağlar.
@@ -57,6 +63,10 @@ claude --plugin-dir /path/to/arge-tesvik-skills
 ## references/ klasörü
 
 `references/` klasörü kasıtlı olarak boş gelir. TÜBİTAK'ın uygulama esasları, AGY101/AGY301 şablonları ve güncel çağrı metinleri gibi belgeler sık güncellendiği ve bu depoda yeniden dağıtılması uygun olmadığı için, bu belgeleri tubitak.gov.tr'den indirip kendiniz eklemeniz gerekir. Hangi dosyaların nereden indirileceği için `references/README.md`'ye bakın.
+
+İndirdiğiniz dosyaları klasöre taşımak, herhangi bir dosya yöneticisiyle ya da terminalde `mv`/sürükle-bırak ile yapılan sıradan bir işlemdir — örnek:
+
+![references/ klasörünü indirilen dosyalarla doldurma örneği](./assets/references-demo.gif)
 
 ## Otomatik çağrı takibi (opsiyonel)
 
