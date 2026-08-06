@@ -29,20 +29,20 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 
 Bu depo hem plugin'i (`.claude-plugin/plugin.json`) hem de kendi kendini listeleyen bir marketplace'i (`.claude-plugin/marketplace.json`) içerir, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur.
 
-**1.** Bir terminalde `claude` yazıp Claude Code'u açın.
-**2.** Aşağıdaki iki komutu satır satır yapıştırıp Enter'a basın (ikisi de Claude Code'un kendi komut satırına yazılır, normal terminale değil):
+Claude Code kurulu olan normal bir terminalde şu iki komutu çalıştırın:
 
 ```
-/plugin marketplace add ibrahim-isikli/arge-tesvik-skills
-/plugin install arge-tesvik@arge-tesvik-skills
+claude plugin marketplace add ibrahim-isikli/arge-tesvik-skills
+claude plugin install arge-tesvik@arge-tesvik-skills
 ```
 
-**3.** Kurulum özeti "Run /reload-plugins to activate." derse `/reload-plugins` yazıp Enter'a basın.
-**4.** Kurulum bitti — artık `/arge-tesvik:degerlendir` gibi komutları veya taslağınızı paylaşıp "hakem ne der?" demeyi deneyebilirsiniz.
+Bundan sonra `claude` yazıp yeni bir oturum açtığınızda eklenti hazır olur — ayrıca bir "reload" adımına gerek yoktur, çünkü her yeni `claude` oturumu kurulu plugin'leri zaten yükler. Deneme için: `/arge-tesvik:degerlendir` yazın ya da bir taslak paylaşıp "hakem ne der?" deyin.
 
-Adımların terminalde nasıl göründüğü:
+Adımların terminalde tam olarak nasıl göründüğü (bu komutları bu depoya karşı gerçekten çalıştırıp çıktısını kaydettim, uydurma metin değil):
 
-![Kurulum adımları: /plugin marketplace add, /plugin install, /reload-plugins](./assets/kurulum-demo.gif)
+![Kurulum adımları: claude plugin marketplace add, claude plugin install](./assets/kurulum-demo.gif)
+
+Zaten açık bir Claude Code oturumundaysanız aynı işlemi oturumun kendi komut satırına `/plugin marketplace add ...` ve `/plugin install ...` yazarak da yapabilirsiniz; bu durumda kurulum özeti "Run /reload-plugins to activate." derse `/reload-plugins` çalıştırmanız gerekir (bu ekran etkileşimli bir seçim adımı içerdiği için burada ayrıca göstermedim).
 
 Yerelde geliştirirken/denerken (marketplace/install adımları olmadan, doğrudan klasörden):
 
