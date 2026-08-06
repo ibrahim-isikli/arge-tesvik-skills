@@ -1,5 +1,8 @@
 # arge-tesvik-skills
 
+[![Plugin doğrulama](https://github.com/ibrahim-isikli/arge-tesvik-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/ibrahim-isikli/arge-tesvik-skills/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten bir **Ar-Ge Teşvik & Proje Uzmanı**'nın işini destekleyen bir Claude Code eklentisi (`arge-tesvik`).
 
 Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https://www.tubitak.gov.tr)
@@ -81,6 +84,29 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 ## Otomatik çağrı takibi (opsiyonel)
 
 `cagri-tarama` her çalıştığında canlı tarama yapar, ama isterseniz Claude Code'un Routine (zamanlanmış tetikleyici) özelliğiyle bunu periyodik hale getirebilirsiniz — örneğin her Pazartesi `/arge-tesvik:tara` çalıştırıp yeni çağrı veya yaklaşan son başvuru tarihi varsa size haber vermesini isteyebilirsiniz. Bu, depoya gömülü bir özellik değil, Claude Code'un genel zamanlama mekanizmasının bu eklentiyle kullanımıdır; kurmak isterseniz Claude'a "her Pazartesi /arge-tesvik:tara çalıştır ve yeni çağrı varsa bana haber ver" demeniz yeterli.
+
+## Sorun giderme
+
+**Skill tetiklenmiyor / Claude taslağımı görmezden geliyor.**
+Doğrudan `/arge-tesvik:degerlendir` gibi bir komut yazmayı deneyin — otomatik tetikleme bazen çok kısa/belirsiz mesajlarda (ör. sadece "bak" demek) devreye girmeyebilir. Plugin'in yüklü olduğunu `claude plugin list` ile doğrulayın.
+
+**`claude plugin install` sonrası eklenti hazır değil gibi görünüyor.**
+Yeni bir `claude` oturumu açtığınızdan emin olun — CLI üzerinden (`claude plugin install`) yapılan kurulumlar mevcut açık bir oturuma otomatik yansımaz, yeni oturumda yüklenir. Zaten açık bir oturumda `/plugin install ...` kullandıysanız `/reload-plugins` çalıştırmanız gerekir.
+
+**`patent-on-arastirma` çalışmıyor / MCP sunucusuna bağlanamıyor.**
+`markapatent-mcp` bu eklentinin bir parçası değil, ayrı bir servis (`https://markapatent-mcp.fastmcp.app/mcp`) — o servis erişilemezse ya da ilk kullanımda onay istemi görünmezse `claude plugin details arge-tesvik` ile MCP sunucusunun listelendiğini kontrol edin, ardından Claude Code'un ağ/onay ayarlarını gözden geçirin.
+
+**`claude plugin marketplace add` "not found" veya klonlama hatası veriyor.**
+Depo adının doğru yazıldığından (`ibrahim-isikli/arge-tesvik-skills`) ve GitHub'a erişiminiz olduğundan emin olun. Kurumsal bir ağdaysanız, ağ politikanız GitHub'a erişimi kısıtlıyor olabilir.
+
+**`cagri-tarama` veya `gider-kalemi-kontrolu` "bulunamadı" diyor.**
+Bu bir hata değil — skill'ler sayısal değerleri asla hafızadan uydurmuyor, kaynakta bulamadıklarını açıkça "bulunamadı" olarak işaretliyor. Bu durumda ilgili TÜBİTAK sayfasını doğrudan kontrol edin.
+
+Buradakiler çözmüyorsa bir [issue açın](https://github.com/ibrahim-isikli/arge-tesvik-skills/issues).
+
+## Katkıda bulunma
+
+Yeni bir skill fikri, mevcut bir skill'de iyileştirme veya hata düzeltmesi için katkılar memnuniyetle karşılanır. Başlamadan önce [CONTRIBUTING.md](./CONTRIBUTING.md)'ye bakın — özellikle her skill'in uyması gereken zorunlu kurallar ve test etme adımları için.
 
 ## Sürüm geçmişi
 

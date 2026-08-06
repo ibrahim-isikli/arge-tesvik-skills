@@ -1,0 +1,17 @@
+{
+  "skill_name": "cagri-tarama",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "TÜBİTAK'ın açık çağrıları neler, özellikle 1501 ve 1507'nin son başvuru tarihi ne zaman?",
+      "expected_output": "cagri-tarama skill'i tetiklenir; WebSearch/WebFetch ile tubitak.gov.tr kaynaklarına gidilir, son başvuru tarihi ve bütçe üst limiti gibi sayısal değerler hafızadan yazılmaz, sonuç kaynak linkiyle birlikte sunulur, tarama tarihi belirtilir.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "ARDEB 1001 için bu ay başvuru yapabilir miyim, dönem açık mı?",
+      "expected_output": "cagri-tarama tetiklenir, 1001 çağrısının güncel durumunu kaynaktan doğrulamaya çalışır, bulunamayan bilgi için 'bulunamadı, resmi kaynaktan teyit edin' der, tahmini bir tarih uydurmaz.",
+      "files": []
+    }
+  ]
+}

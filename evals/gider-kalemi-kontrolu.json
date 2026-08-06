@@ -1,0 +1,17 @@
+{
+  "skill_name": "gider-kalemi-kontrolu",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "bu bütçe kalemlerini kontrol eder misin, hakem sorun çıkarır mı?\n\n1. Proje yöneticisine fazla mesai ücreti: 20.000 TL\n2. Ar-Ge personeli için 2 adet iş bileti (business class), Almanya konferansı: 45.000 TL\n3. Genel amaçlı ERP yazılımı lisansı: 80.000 TL\n4. Test cihazı kalibrasyonu (dış hizmet alımı, proje faaliyetine bağlı): 15.000 TL",
+      "expected_output": "gider-kalemi-kontrolu skill'i tetiklenir; her kalem 5 resmi kategoriden birine atanır, fazla mesai ve business class seyahat gibi bilinen ret kalıpları işaretlenir, hiçbir kalem 'kesin kabul edilir' diye onaylanmaz, güncel bütçe üst limiti hafızadan yazılmaz.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "TEYDEB'de hangi giderler kabul ediliyor, personel maaşına ikramiye ekleyebilir miyim?",
+      "expected_output": "gider-kalemi-kontrolu tetiklenir; personel giderleri kategorisindeki bilinen kısıtlamayı (ikramiye/prim gibi ek ödemelerin genelde kabul edilmediğini) açıklar, kesin bir rakam/oran hafızadan uydurmaz.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+name: Plugin doğrulama
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Claude Code CLI kur
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: JSON söz dizimini doğrula
+        run: |
+          for f in .claude-plugin/plugin.json .claude-plugin/marketplace.json; do
+            echo "Kontrol ediliyor: $f"
+            python3 -c "import json; json.load(open('$f'))"
+          done
+
+      - name: Plugin/marketplace manifestini doğrula
+        run: claude plugin validate . --strict
+
+      - name: Her skill'in SKILL.md içerdiğini kontrol et
+        run: |
+          for d in skills/*/; do
+            if [ ! -f "${d}SKILL.md" ]; then
+              echo "HATA: ${d} içinde SKILL.md yok"
+              exit 1
+            fi
+          done
+          echo "Tüm skill klasörlerinde SKILL.md mevcut."

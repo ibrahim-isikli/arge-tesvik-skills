@@ -1,0 +1,17 @@
+{
+  "skill_name": "patent-on-arastirma",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "geliştirdiğimiz IoT tabanlı su sayacı fikri için TÜRKPATENT'te benzer bir patent var mı, kontrol eder misin?",
+      "expected_output": "patent-on-arastirma skill'i tetiklenir; markapatent-mcp sunucusunun sunduğu araçlarla (patent/marka/tasarım arama) gerçek bir tarama yapılır, bulgular listelenir, 'bu fikir özgündür' gibi bir sonuca varılmaz, karar insana bırakılır.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "bu ürün adını marka olarak tescil ettirebilir miyiz, TÜRKPATENT'te müsait mi?",
+      "expected_output": "patent-on-arastirma tetiklenir, marka araması yapılır, sonuç bulunamazsa bu 'özgün/temiz' olarak yorumlanmaz — sadece arama kapsamında bulunamadığı belirtilir.",
+      "files": []
+    }
+  ]
+}

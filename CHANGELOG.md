@@ -2,6 +2,15 @@
 
 Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürümler [Semantic Versioning](https://semver.org)'ı takip eder.
 
+## 0.4.0
+
+- Popüler Claude Code plugin/skill repoları (`anthropics/skills`, `anthropics/claude-code/plugins`) araştırılarak eksik olan standart repo bileşenleri eklendi:
+  - `.github/workflows/validate.yml` — her push/PR'da `claude plugin validate --strict` ve JSON/SKILL.md bütünlük kontrolü çalıştıran CI
+  - `CONTRIBUTING.md` — yeni skill eklerken uyulması gereken zorunlu kurallar ve test adımları
+  - `evals/*.json` — her skill için skill-creator formatında gerçekçi test promptları
+  - `.gitignore`
+  - README'ye "Sorun giderme" ve "Katkıda bulunma" bölümleri, CI/lisans rozetleri
+
 ## 0.3.0
 
 - `gider-kalemi-kontrolu` skill'i ve `/arge-tesvik:gider` komutu eklendi. TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına göre işaretler.

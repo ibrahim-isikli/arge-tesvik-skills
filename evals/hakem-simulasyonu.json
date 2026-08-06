@@ -1,0 +1,23 @@
+{
+  "skill_name": "hakem-simulasyonu",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "şu proje önerimi bir bak, hakem ne der? [proje önerisi taslağı buraya yapıştırılır]",
+      "expected_output": "hakem-simulasyonu skill'i tetiklenir; üç boyut (endüstriyel Ar-Ge niteliği/yenilik, proje planı/yapılabilirlik, ticarileşme potansiyeli) ayrı ayrı işlenir, taslaktan doğrudan alıntılarla gerekçelendirilmiş zayıf noktalar verilir, puan veya kabul/ret garantisi verilmez, çıktının sonunda ÜYZ gizlilik/beyan/sorumluluk hatırlatması yer alır.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "1507 başvurumu hazırladım, reddedilir mi sence, bir göz atar mısın",
+      "expected_output": "hakem-simulasyonu tetiklenir; taslak metni paylaşılmadıysa skill önce taslağı ister, dayanaksız bir 'reddedilmez/kabul edilir' tahmininde bulunmaz.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "bu ticarileşme paragrafı yeterli mi, hakem bunu nasıl okur?",
+      "expected_output": "hakem-simulasyonu tetiklenir ve özellikle ticarileşme potansiyeli boyutuna (en ağırlıklı boyut) odaklanır; genel geçer değil, paylaşılan metinden alıntıya dayalı somut eleştiri verir.",
+      "files": []
+    }
+  ]
+}

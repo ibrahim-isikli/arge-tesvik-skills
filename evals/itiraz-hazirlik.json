@@ -1,0 +1,17 @@
+{
+  "skill_name": "itiraz-hazirlik",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "geçen hafta 1507 projemiz reddedildi, hakem raporunda literatür taraması yetersiz denmiş ama biz proje metninde 15 kaynağa atıf yapmıştık, hakem bunu görmemiş olabilir mi, itiraz edebilir miyiz?",
+      "expected_output": "itiraz-hazirlik skill'i tetiklenir; proje metni ve hakem raporu paylaşılmadan dayanaksız bir itiraz taslağı yazılmaz, önce bu belgeler ve ret kararının tebliğ tarihi istenir, 15 günlük süre hatırlatılır.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "projem reddedildi, ne yapmalıyım, itiraz mı etsem yoksa yeniden mi başvursam?",
+      "expected_output": "itiraz-hazirlik tetiklenir; ret gerekçelerinin itiraz adayı mı yoksa gerçek zayıflık mı olduğuna göre karar verilir, gerçek zayıflıklar için hakem-simulasyonu skill'ine yönlendirme yapılır, itiraz sonucu garanti edilmez.",
+      "files": []
+    }
+  ]
+}
