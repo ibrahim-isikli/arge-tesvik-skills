@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "arge-tesvik",
+  "displayName": "Ar-Ge Teşvik & Proje Uzmanı",
+  "version": "0.1.0",
+  "description": "Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten Ar-Ge Teşvik & Proje Uzmanı için hakem simülasyonu, çağrı tarama ve patent ön araştırma araçları. TÜBİTAK ile ilişkili değildir.",
+  "author": {
+    "name": "İbrahim Işıklı"
+  },
+  "license": "MIT",
+  "keywords": [
+    "tubitak",
+    "teydeb",
+    "ardeb",
+    "arge-tesvik",
+    "5746",
+    "patent",
+    "hakem-simulasyonu"
+  ],
+  "mcpServers": {
+    "markapatent-mcp": {
+      "type": "http",
+      "url": "https://markapatent-mcp.fastmcp.app/mcp"
+    }
+  }
+}
