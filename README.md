@@ -29,20 +29,26 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 
 Bu depo hem plugin'i (`.claude-plugin/plugin.json`) hem de kendi kendini listeleyen bir marketplace'i (`.claude-plugin/marketplace.json`) içerir, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur.
 
-Claude Code içinde:
+**1.** Bir terminalde `claude` yazıp Claude Code'u açın.
+**2.** Aşağıdaki iki komutu satır satır yapıştırıp Enter'a basın (ikisi de Claude Code'un kendi komut satırına yazılır, normal terminale değil):
 
 ```
 /plugin marketplace add ibrahim-isikli/arge-tesvik-skills
 /plugin install arge-tesvik@arge-tesvik-skills
 ```
 
-veya yerelde geliştirirken/denerken:
+**3.** Kurulum özeti "Run /reload-plugins to activate." derse `/reload-plugins` yazıp Enter'a basın.
+**4.** Kurulum bitti — artık `/arge-tesvik:degerlendir` gibi komutları veya taslağınızı paylaşıp "hakem ne der?" demeyi deneyebilirsiniz.
+
+Adımların terminalde nasıl göründüğü:
+
+![Kurulum adımları: /plugin marketplace add, /plugin install, /reload-plugins](./assets/kurulum-demo.gif)
+
+Yerelde geliştirirken/denerken (marketplace/install adımları olmadan, doğrudan klasörden):
 
 ```
 claude --plugin-dir /path/to/arge-tesvik-skills
 ```
-
-Kurulumdan sonra `/reload-plugins` gerekebilir (kurulum özeti bunu belirtir).
 
 ## markapatent-mcp bağlantısı
 
