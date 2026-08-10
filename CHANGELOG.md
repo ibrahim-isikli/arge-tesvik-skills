@@ -7,6 +7,10 @@ Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürüml
 - **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
 - **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
 
+## 0.6.2
+
+- `.gitignore`, `CODE_OF_CONDUCT.md` ve `CONTRIBUTING.md` eklendi. Bu dosyalar daha önce, hiç merge edilmemiş ve kapatılmış bir PR'da (`claude/arge-tesvik-skills-setup-5shcq1`) taslak olarak vardı; içerikleri gözden geçirilip depo o zamandan bu yana değişmiş güncel yapıya (`tests/` eval çerçevesi, `scripts/validate.py`, CI'sız test akışı) uyacak şekilde güncellenerek eklendi. `evals/*.json` (artık `tests/<skill>/eval-scenarios.md` ile karşılanıyor) ve o dalın eski CI workflow dosyası, güncel yapıda gereksiz oldukları için taşınmadı.
+
 ## 0.6.1
 
 - `.github/workflows/validate.yml` (CI) kaldırıldı. Depo sahibinin GitHub hesabı, reponun içeriğiyle ilgisi olmayan bir billing kilidi nedeniyle Actions job'larını hiç başlatamıyordu ("account is locked due to a billing issue") ve GitHub Actions'a bağımlı olunmaması tercih edildi. `scripts/validate.py` hâlâ var ve çalışıyor, sadece artık otomatik değil — commit öncesi elle çalıştırılmalı (`python3 scripts/validate.py`). README ve `docs/automation-readiness.md` bu değişikliği yansıtacak şekilde güncellendi.
