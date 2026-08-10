@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editör
+.vscode/
+.idea/
+*.swp
+
+# skill-creator ile test çalıştırıldığında oluşan geçici klasörler
+*-workspace/
+/tmp/
+
+# references/ klasörüne kullanıcının kendi indirdiği belgeler (README.md hariç)
+references/*
+!references/README.md

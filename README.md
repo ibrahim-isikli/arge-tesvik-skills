@@ -115,6 +115,10 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 
 Değişiklikler için [CHANGELOG.md](./CHANGELOG.md)'ye bakın.
 
+## Katkıda bulunma
+
+Yeni bir skill önermeden veya PR açmadan önce [CONTRIBUTING.md](./CONTRIBUTING.md)'yi okuyun (zorunlu kurallar, test etme adımları, skill yazım kuralları). Katkı sağlarken [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)'ye uyulması beklenir.
+
 ## Zorunlu kurallar (tüm skill'lerde geçerli)
 
 Her skill, TÜBİTAK ÜYZ (üretken yapay zeka) Rehberi (Eylül 2025) kapsamında şu kurallara uyacak şekilde yazıldı:
