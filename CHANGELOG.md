@@ -2,6 +2,12 @@
 
 Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürümler [Semantic Versioning](https://semver.org)'ı takip eder.
 
+## 0.5.0
+
+- Çok yıldızlı bir topluluk skill reposu (`alirezarezvani/claude-skills`, 24k+ yıldız) analiz edildi. Reponun çoğu (çoklu-araç dönüştürme, persona sistemi, kendi güvenlik denetleyicisi) bizim tek-domain, 5 skill'lik ölçeğimize uymadığı için kopyalanmadı; ölçeğe uygun iki gerçek eksik eklendi:
+  - `CODE_OF_CONDUCT.md`
+  - README'ye "Sık sorulan sorular" bölümü (resmi ilişki, veri gizliliği, içerik üretip üretmediği, güncelleme, çoklu proje kullanımı, hukuki/mali tavsiye olup olmadığı)
+
 ## 0.4.0
 
 - Popüler Claude Code plugin/skill repoları (`anthropics/skills`, `anthropics/claude-code/plugins`) araştırılarak eksik olan standart repo bileşenleri eklendi:

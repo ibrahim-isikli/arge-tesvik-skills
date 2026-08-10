@@ -1,6 +1,6 @@
 # Katkıda Bulunma
 
-Bu, Türkiye'deki Ar-Ge teşvik süreçleri için bir Claude Code eklentisi (`arge-tesvik`). Katkılar — yeni bir skill fikri, mevcut bir skill'de iyileştirme, hata düzeltmesi — memnuniyetle karşılanır.
+Bu, Türkiye'deki Ar-Ge teşvik süreçleri için bir Claude Code eklentisi (`arge-tesvik`). Katkılar — yeni bir skill fikri, mevcut bir skill'de iyileştirme, hata düzeltmesi — memnuniyetle karşılanır. Katkıda bulunurken [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)'deki kurallara uyulması beklenir.
 
 ## Yeni bir skill önermeden/eklemeden önce
 

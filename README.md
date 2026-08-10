@@ -85,6 +85,26 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 
 `cagri-tarama` her çalıştığında canlı tarama yapar, ama isterseniz Claude Code'un Routine (zamanlanmış tetikleyici) özelliğiyle bunu periyodik hale getirebilirsiniz — örneğin her Pazartesi `/arge-tesvik:tara` çalıştırıp yeni çağrı veya yaklaşan son başvuru tarihi varsa size haber vermesini isteyebilirsiniz. Bu, depoya gömülü bir özellik değil, Claude Code'un genel zamanlama mekanizmasının bu eklentiyle kullanımıdır; kurmak isterseniz Claude'a "her Pazartesi /arge-tesvik:tara çalıştır ve yeni çağrı varsa bana haber ver" demeniz yeterli.
 
+## Sık sorulan sorular
+
+**Bu araç TÜBİTAK'ın resmi bir aracı mı?**
+Hayır. Bağımsız, gayriresmi bir Claude Code eklentisidir; TÜBİTAK ile hiçbir kurumsal bağı yoktur. Resmi kaynak her zaman [tubitak.gov.tr](https://www.tubitak.gov.tr).
+
+**Paylaştığım taslak/veriler TÜBİTAK'a mı gidiyor?**
+Hayır — hiçbir skill TÜBİTAK'a veya başka bir kuruma veri göndermez. Konuşma Claude ile sizin aranızda kalır (`patent-on-arastirma` sadece TÜRKPATENT'te genel bir arama yapar, `cagri-tarama` sadece tubitak.gov.tr'yi okur — hiçbiri sizin girdiğiniz veriyi bir yere iletmez). Yine de "Zorunlu kurallar" bölümündeki gizlilik uyarısına uyup gerçek ciro/bütçe rakamlarını placeholder'la değiştirmeniz önerilir — bu, Claude'un kendisiyle paylaşılan verinin genel olarak dikkatli kullanılması gerektiği içindir, TÜBİTAK'a gitme riskinden değil.
+
+**Skill'ler proje önerimi benim yerime mi yazıyor?**
+Hayır, çoğu (`hakem-simulasyonu`, `gider-kalemi-kontrolu`, `cagri-tarama`, `patent-on-arastirma`) sadece eleştirir/tarar/kontrol eder, içerik üretmez. Tek kısmi istisna `itiraz-hazirlik`'in itiraz dilekçesi taslağıdır — o da yalnızca sizin zaten yazdığınız proje metninden/hakem raporundan alıntıyla sınırlıdır, yeni iddia eklemez.
+
+**Güncellemeleri nasıl alırım?**
+`claude plugin update arge-tesvik@arge-tesvik-skills` veya Claude Code'un otomatik marketplace güncellemesi (varsayılan olarak açık) yeni sürümleri getirir. Neyin değiştiğini görmek için [CHANGELOG.md](./CHANGELOG.md)'ye bakın.
+
+**Birden fazla proje/firma için kullanabilir miyim?**
+Evet — eklenti bir kez kurulur, tüm Claude Code oturumlarınızda kullanılabilir (kurulum kapsamına göre). Skill'ler herhangi bir durum/veri saklamaz, her konuşma bağımsızdır.
+
+**Skill'lerin önerdiği şey hukuki veya mali tavsiye mi?**
+Hayır. Her skill çıktısının sonunda hatırlattığı gibi, nihai sorumluluk her zaman başvuru sahibine aittir; kritik kararlar için (özellikle itiraz süreci gibi geri dönüşü zor olanlarda) bir patent vekili/mali müşavir/TÜBİTAK'ın kendisiyle teyit önerilir.
+
 ## Sorun giderme
 
 **Skill tetiklenmiyor / Claude taslağımı görmezden geliyor.**
@@ -106,7 +126,7 @@ Buradakiler çözmüyorsa bir [issue açın](https://github.com/ibrahim-isikli/a
 
 ## Katkıda bulunma
 
-Yeni bir skill fikri, mevcut bir skill'de iyileştirme veya hata düzeltmesi için katkılar memnuniyetle karşılanır. Başlamadan önce [CONTRIBUTING.md](./CONTRIBUTING.md)'ye bakın — özellikle her skill'in uyması gereken zorunlu kurallar ve test etme adımları için.
+Yeni bir skill fikri, mevcut bir skill'de iyileştirme veya hata düzeltmesi için katkılar memnuniyetle karşılanır. Başlamadan önce [CONTRIBUTING.md](./CONTRIBUTING.md)'ye bakın — özellikle her skill'in uyması gereken zorunlu kurallar ve test etme adımları için. Katkıda bulunurken [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)'ye uyulması beklenir.
 
 ## Sürüm geçmişi
 
