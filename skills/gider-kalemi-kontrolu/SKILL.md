@@ -41,7 +41,7 @@ Her kalemi ilgili kategoriye oturttuktan sonra, aşağıdaki kalıplardan herhan
 
 ## Çıktı formatı
 
-Her zaman şu tabloyu kullan:
+ZORUNLU: cevabın her zaman TEK bir ana tablo içermeli ve bu tablo tam olarak aşağıdaki 5 kolona sahip olmalı: Kalem | Kategori | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Gerekçe. Kalem başına ayrı ayrı serbest metin/madde işaretli analiz yazma, ek "özet tablo" veya "risk seviyesi" gibi ikinci bir tablo daha üretme — tüm bulgu ve gerekçeyi bu tek tablonun ilgili satır/kolonlarına sığdır. Aşağıdaki şablonu birebir takip et:
 
 ```markdown
 # Gider Kalemi Kontrolü

@@ -10,7 +10,7 @@
 
 **Girdi:** Sadece rapor taslağı paylaşılır, onaylı proje planı verilmez.
 
-**Beklenen davranış:** Onaylı plan istenir; plan gelmeden yüzeysel/plansız bir değerlendirme yapılmaz.
+**Beklenen davranış:** Önce onaylı plan istenir. Kullanıcı planı sağlayamıyorsa, değerlendirme tamamen reddedilmez — ama raporun en başında göze çarpan bir "Önemli kısıtlama" notuyla bunun plana kıyasla değil, sadece raporun kendi iç tutarlılığı/kanıt yeterliliği üzerinden yapılan kısıtlı bir değerlendirme olduğu açıkça belirtilir. Kısıtlama hiçbir zaman sessiz geçilmez. (Gerçek runtime testinde doğrulandı: bkz. audit turu notları.)
 
 ## 3. Hallucination tuzağı
 
