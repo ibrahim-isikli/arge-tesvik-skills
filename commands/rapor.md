@@ -7,4 +7,4 @@ argument-hint: [rapor taslağı ve onaylı proje planı, veya dosya yolları]
 
 Rapor taslağı / proje planı: $ARGUMENTS
 
-Yukarıda dosya yolu verildiyse önce o dosyaları oku. Hiçbir şey verilmediyse, kullanıcıdan hem onaylı proje planını hem de değerlendirilecek dönem/gelişme/sonuç raporu taslağını iste.
+Yukarıda dosya yolu verildiyse önce o dosyaları oku. Okuduktan sonra hem onaylı proje planı hem de rapor taslağı elinde değilse (örn. sadece rapor dosyası verildiyse), raporu değerlendirmeden önce eksik olan tarafı kullanıcıdan iste — plansız değerlendirme yüzeysel kalır. Hiçbir şey verilmediyse, kullanıcıdan hem onaylı proje planını hem de değerlendirilecek dönem/gelişme/sonuç raporu taslağını iste.
