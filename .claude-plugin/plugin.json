@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "arge-tesvik",
   "displayName": "Ar-Ge Teşvik & Proje Uzmanı",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten Ar-Ge Teşvik & Proje Uzmanı için hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırma, dönem/gelişme raporu kontrolü, belgeler arası tutarlılık kontrolü ve ret sonrası itiraz hazırlığı araçları. TÜBİTAK ile ilişkili değildir.",
   "author": {
     "name": "İbrahim Işıklı"

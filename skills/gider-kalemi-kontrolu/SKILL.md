@@ -32,24 +32,44 @@ Her kalemi ilgili kategoriye oturttuktan sonra, aşağıdaki kalıplardan herhan
 
 ## Nasıl çalış
 
+0. **ZORUNLU İŞ AKIŞI — atlanamaz, opsiyonel değil:** Bu skill'in çıktısı her zaman aşağıdaki adımlarla üretilir: (1) analiz et → (2) ana tabloyu bir dosyaya yaz → (3) `scripts/check_table.py` ile doğrula → (4) hata varsa düzelt, script "OK" diyene kadar tekrar çalıştır → (5) ancak "OK" sonrasında nihai yanıtı gönder. Bu doğrulama adımını "gerekli görmediğin", "tablo zaten doğru göründüğü" veya "basit bir görev olduğu" gerekçesiyle atlama — script çalıştırılmadan gönderilen bir yanıt bu skill'in gereksinimini karşılamaz.
 1. Kullanıcının paylaştığı bütçe/gider dökümündeki her kalemi yukarıdaki 5 kategoriden birine ata. Hiçbirine net oturmuyorsa bunu ayrıca belirt, kategori uydurma.
 2. Her kalem için ilgili kategorinin bilinen ret kalıplarını kontrol et ve eşleşme varsa somut olarak göster: *"Bu kalem [X], çünkü [gerekçe]."*
 3. **İki ayrı boyutu birbirine karıştırma**: (a) kalem TEYDEB'in kabul ettiği gider türüne uyuyor mu ("uygunluk") ve (b) kalemin bu projeyle bağlantısı taslakta/açıklamada yeterince gerekçelendirilmiş mi ("gerekçelendirme"). Kategorisi tamamen uygun bir kalem, proje faaliyetiyle bağlantısı kurulmadığı için yine de zayıf olabilir — bu ikisini çıktıda ayrı sütunlarda değerlendir, tek bir "uygun/şüpheli" yargısında birleştirme.
 4. Bütçe üst limiti, kişi/gün ücret tavanı gibi güncel sayısal sınırlar soruluyorsa hafızandan yazma; `cagri-tarama` skill'ini çalıştırmasını öner ya da doğrudan resmi kaynağı tara. Böyle bir sınırı resmi kaynaktan doğrulayamıyorsan bunu UNKNOWN olarak işaretle, tahmini bir rakam verme (bkz. `docs/evidence-protokolu.md`).
 5. Hiçbir kalemi "bu kesin kabul edilir" diye onaylama — en fazla "bilinen ret kalıplarından hiçbirine uymuyor" diyebilirsin.
 6. Aynı kalemin tutarı, paylaşılan belge içinde birden fazla yerde (örn. özet tablo ve ayrıntılı döküm) farklı gösteriliyorsa bunu ayrı bir bulgu olarak işaretle. Kullanıcı bu bütçeyi başka bir proje belgesiyle (proje planı, hakem raporu vb.) karşılaştırmak isterse `proje-tutarlilik-kontrolu` skill'ini öner — bu skill tek belge içindeki kalemleri denetler, belgeler arası karşılaştırma yapmaz.
+7. **Son adım (adım 0'ın uygulanması) — bu skill'in tanımlayıcı parçasıdır:**
+   a. Ana tabloyu (sadece tablo: başlık satırı + veri satırları) `/tmp/gider-tablo-kontrol.md` dosyasına yaz.
+   b. Bash ile şunu çalıştır: `python3 scripts/check_table.py /tmp/gider-tablo-kontrol.md` (yol bu skill'in kendi klasörüne göredir).
+   c. Çıktı "BAŞARISIZ" ise, listelenen hataları düzelt, dosyayı güncelle, script tekrar "OK" verene kadar (a)-(c) adımlarını tekrarla.
+   d. Sadece script "OK" dedikten SONRA nihai yanıtı (tablo + varsa tablo dışı açıklama + zorunlu uyarı bloğu) kullanıcıya yaz.
 
 ## Çıktı formatı
 
-ZORUNLU: cevabın her zaman TEK bir ana tablo içermeli ve bu tablo tam olarak aşağıdaki 5 kolona sahip olmalı: Kalem | Kategori | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Gerekçe. Kalem başına ayrı ayrı serbest metin/madde işaretli analiz yazma, ek "özet tablo" veya "risk seviyesi" gibi ikinci bir tablo daha üretme — tüm bulgu ve gerekçeyi bu tek tablonun ilgili satır/kolonlarına sığdır. Aşağıdaki şablonu birebir takip et:
+Çıktı iki ayrı bölümden oluşur: **zorunlu bir ana tablo** (terse, satır başına tek kalem) ve **tablo dışında serbest bir açıklama bölümü** (ayrıntılı gerekçe, alıntı, kaynak burada yer alır — tabloyu genişletmek yerine buraya yaz).
+
+### Ana tablo — ZORUNLU, tam olarak bu 5 kolon
+
+İncelenen her kalem bu tabloda bir satır olarak yer almalı; kolon adları birebir korunmalı (başka isim, sıra veya ek/eksik kolon kullanma; ikinci bir özet/risk tablosu daha üretme — tek ana tablo yeterli):
 
 ```markdown
-# Gider Kalemi Kontrolü
-
-| Kalem | Kategori | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Gerekçe |
+| Gider | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Kanıt Durumu | Risk |
 |---|---|---|---|---|
-| ... | Personel / Seyahat / Hizmet Alımı / Alet-Teçhizat-Yazılım-Yayın / Malzeme-Sarf | Uygun görünüyor / Şüpheli / Kategorisi belirsiz | Yeterli / Zayıf / Bağlantı kurulmamış | ... |
+| [kalem kısa adı + tutar] | [Personel/Seyahat/Hizmet Alımı/Alet-Teçhizat-Yazılım-Yayın/Malzeme-Sarf] — Uygun görünüyor / Şüpheli / Kategorisi belirsiz | Yeterli / Zayıf / Bağlantı kurulmamış | FACT / USER-PROVIDED / UNKNOWN / OUTDATED / CONFLICTING | Düşük / Orta / Yüksek |
+```
 
+Kolon anlamları:
+- **Kategori Uygunluğu** — kalem TEYDEB'in 5 resmi kategorisinden birine uyuyor mu (kategori adını da bu hücrede belirt).
+- **Gerekçelendirme Yeterliliği** — kalemin proje faaliyetiyle bağlantısı belgede yeterince açıklanmış mı (kategoriden bağımsız bir boyut, adım 3'e bakın).
+- **Kanıt Durumu** — bu satırdaki değerlendirmenin dayanağı: kalemin tutarı/uygunluğu resmi bir kaynakla mı doğrulandı (FACT), sadece kullanıcının/belgenin kendi beyanına mı dayanıyor (USER-PROVIDED), doğrulanamayan bir sınır/tavan mı var (UNKNOWN), eski/güncelliği şüpheli bir referans mı kullanılmış (OUTDATED), yoksa belge içinde çelişki mi var (CONFLICTING) — bkz. `docs/evidence-protokolu.md`.
+- **Risk** — bu kalemin hakem tarafından reddedilme/kesilme riski: Düşük / Orta / Yüksek.
+
+### Tablo dışı açıklama (zorunlu değil ama önerilir)
+
+Ana tablodan sonra, isteğe bağlı olarak her kalem için ayrı bir alt başlıkta kaynak alıntısı ve tam gerekçeyi yaz — tablo hücrelerini uzatmak yerine ayrıntıyı buraya koy. Ardından:
+
+```markdown
 ## Genel örüntü
 [Bütçenin genelinde tekrar eden bir sorun varsa buraya]
 
@@ -59,9 +79,10 @@ ZORUNLU: cevabın her zaman TEK bir ana tablo içermeli ve bu tablo tam olarak a
 
 ## Kesinlikle yapma
 
-- **Güncel bütçe üst limitini, kişi/gün ücret tavanını veya yüzde sınırlarını hafızadan yazma.** Bunlar sık değişir; kaynağa yönlendir.
+- **Güncel bütçe üst limitini, kişi/gün ücret tavanını veya yüzde sınırlarını hafızadan yazma.** Bunlar sık değişir; kaynağa yönlendir, doğrulanamıyorsa Kanıt Durumu'nu UNKNOWN yap.
 - **"Bu kalem kesin kabul edilir" gibi bir garanti verme.** Bilinen ret kalıplarına uymaması, hakemin kabul edeceği anlamına gelmez.
 - **Kategori uydurma.** Bir kalem 5 kategoriden hiçbirine net oturmuyorsa bunu belirsiz olarak işaretle, zorla bir kategoriye sokma.
+- **Ana tabloyu atlama veya kolon adlarını değiştirme.** Ayrıntılı anlatım istiyorsan bunu tablo dışındaki açıklama bölümüne yaz, ana tabloyu onun yerine geçirme.
 
 ## Zorunlu uyarı bloğu (çıktının sonuna ekle)
 

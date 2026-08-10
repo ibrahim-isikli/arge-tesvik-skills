@@ -7,6 +7,15 @@ Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürüml
 - **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
 - **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
 
+## 0.6.0
+
+- `gider-kalemi-kontrolu`: çıktı sözleşmesi yeniden tasarlandı — zorunlu 5 kolonlu ana tablo (Gider | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Kanıt Durumu | Risk) artık tablo dışı serbest açıklamadan ayrıştırıldı; şemayı mekanik olarak kontrol eden `scripts/check_table.py` eklendi. Gerçek runtime testlerinde (3 farklı gider seti) içerik kalitesi her koşuda doğruydu, ama kolon başlıklarının birebir korunması garanti edilemedi — bu bilinen bir sınırlama olarak belgelendi (bkz. audit raporu).
+- `patent-on-arastirma`: MCP durumunu artık açık `UNAVAILABLE`/`DEGRADED` etiketleriyle raporluyor; var olmayan alternatif patent arama araçlarından bahsetmeyi yasaklayan kural eklendi (gerçek runtime testinde doğrulanan bir P3 bulgusunun düzeltilmesi).
+- `docs/evidence-protokolu.md`: 5 bulgu-üreten skill arasında Status/Finding/Evidence/Risk/Recommendation/Source kavramlarının hangilerinin gerçekten ortak olduğuna dair bir analiz eklendi (Finding/Evidence ortak; Risk/Status kasıtlı olarak evrensel yapılmadı çünkü bazı skill'ler kurumsal sonuç tahmininden kaçınıyor).
+- `.github/workflows/validate.yml` eklendi: push/pull_request'te `scripts/validate.py` çalıştıran minimal CI.
+- `tests/golden/` eklendi: çoklu belge/çoklu skill/cross-skill regression için yapılandırılmış bir golden-dataset çerçevesi (`_template/` + `SCHEMA.md`). Henüz gerçek bir proje verisi içermiyor.
+- 13 runtime regresyon senaryosu (prompt injection, MCP failure, missing/outdated/conflicting bilgi) bu turun değişikliklerinden sonra yeniden doğrulandı; regresyon bulunmadı.
+
 ## 0.5.0
 
 - `proje-tutarlilik-kontrolu` skill'i ve `/arge-tesvik:tutarlilik` komutu eklendi. Aynı projeye ait birden fazla belge arasında süre/bütçe/personel/hedef/TRL/ticarileşme tarihi gibi alanlarda çelişki arar; hangi belgenin doğru olduğuna karar vermez.

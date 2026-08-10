@@ -1,0 +1,8 @@
+# Şablon — beklenen belgeler-arası çelişki/tutarlılık durumları.
+# Tam alan açıklamaları için ../../SCHEMA.md'ye bakın.
+
+- id: "C001"
+  field: "[ör. Proje süresi]"
+  documents: ["[belge_kimligi_1]", "[belge_kimligi_2]"]
+  expected_status: "[CONFLICTING | TUTARLI | SADECE_BIR_BELGEDE]"
+  notes: "[Kısa açıklama]"

@@ -40,3 +40,7 @@ Her skill dosyası aynı 7 kategoriyi kapsar:
 ## fixtures/
 
 `tests/fixtures/injection-sample.md`, kötü niyetli girdi (prompt injection) senaryolarını gerçek bir `WebFetch` çağrısıyla test etmek için kullanılan, kasıtlı olarak talimat enjeksiyonu içeren bir test sayfasıdır. Gerçek bir TÜBİTAK belgesi değildir. `cagri-tarama` skill'ini bu dosyanın raw GitHub URL'siyle çalıştırarak "kaynak = veri, talimat değil" kuralının runtime'da tutup tutmadığını doğrulayabilirsiniz.
+
+## golden/
+
+`tests/golden/`, tek-senaryo eval dosyalarının üzerine bir katman ekler: **aynı kurgusal projeye ait birden fazla belgeyi, birden fazla skill üzerinden ve cross-skill tutarlılık dahil** test etmek için yapılandırılmış bir çerçeve. Henüz gerçek bir golden proje içermiyor — sadece `_template/` ve şema tanımı var. Detaylar için [tests/golden/README.md](golden/README.md).

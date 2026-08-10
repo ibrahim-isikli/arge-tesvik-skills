@@ -88,8 +88,10 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 
 ## Doğrulama ve testler
 
-- `scripts/validate.py` — bağımlılıksız (stdlib) bir statik doğrulama scripti: `plugin.json`/`marketplace.json` JSON geçerliliği, her skill'in SKILL.md frontmatter kısıtlarına (isim/karakter seti/uzunluk, açıklama uzunluğu) uyup uymadığı, slash komutlarının var olan bir skill'e referans verip vermediği ve plugin sürümüyle CHANGELOG'un eşleşip eşleşmediğini kontrol eder. Çalıştırmak için: `python3 scripts/validate.py`.
+- `scripts/validate.py` — bağımlılıksız (stdlib) bir statik doğrulama scripti: `plugin.json`/`marketplace.json` JSON geçerliliği, her skill'in SKILL.md frontmatter kısıtlarına (isim/karakter seti/uzunluk, açıklama uzunluğu) uyup uymadığı, slash komutlarının var olan bir skill'e referans verip vermediği ve plugin sürümüyle CHANGELOG'un eşleşip eşleşmediğini kontrol eder. Çalıştırmak için: `python3 scripts/validate.py`. Bu script `.github/workflows/validate.yml` ile her push/pull_request'te otomatik çalışır.
+- `skills/gider-kalemi-kontrolu/scripts/check_table.py` — o skill'in zorunlu çıktı tablosunun (5 kolon: Gider/Kategori Uygunluğu/Gerekçelendirme Yeterliliği/Kanıt Durumu/Risk) şemasını mekanik olarak kontrol eder; skill kendi çıktısını göndermeden önce bunu çalıştırması beklenir (garanti değil — bkz. Sınırlamalar).
 - `tests/` — her skill için LLM-graded manuel eval senaryoları (normal durum, eksik bilgi, hallucination tuzağı, çelişkili bilgi, güncelliğini yitirmiş bilgi, kötü niyetli girdi, belirsiz istek). Bunlar otomatik CI testi değildir; nasıl kullanılacağı için `tests/README.md`'ye bakın.
+- `tests/golden/` — çoklu belge/çoklu skill ve cross-skill tutarlılık regresyonu için yapılandırılmış bir çerçeve (henüz gerçek proje verisi yok, sadece şablon). Detaylar için `tests/golden/README.md`.
 
 ## Sınırlamalar
 
@@ -97,6 +99,7 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 - `cagri-tarama` ve `patent-on-arastirma` canlı web/MCP erişimine bağımlıdır; ağ erişimi yoksa veya kaynak sayfa değişmişse sonuçlar eksik/hatalı olabilir (skill'ler bu durumu sessizce geçmemek üzere yazıldı, ama garantisi yoktur).
 - `references/` klasörü boş gelir; skill'ler güncel mevzuat/şablon metnini kendiliğinden "bilmez" — doğru çalışmaları için ilgili resmi belgeleri siz eklemelisiniz.
 - Bu eklenti TÜBİTAK veya TÜRKPATENT ile resmi bir ilişki içinde değildir; hiçbir skill çıktısı resmi başvuru sonucu garantisi taşımaz.
+- `gider-kalemi-kontrolu`'nun zorunlu 5 kolonlu çıktı tablosu (Gider/Kategori Uygunluğu/Gerekçelendirme Yeterliliği/Kanıt Durumu/Risk) gerçek runtime testlerinde **içerik olarak her zaman doğru** ama **kolon başlıkları/şema olarak garanti edilemedi** — model bazen farklı bir tablo yapısı üretebilir. Bu şema uyumsuzluğunu otomatik tespit etmek isterseniz `skills/gider-kalemi-kontrolu/scripts/check_table.py`'ı çıktıya karşı elle çalıştırabilirsiniz. Bilgi doğruluğunu etkilemez, sadece programatik ayrıştırma yapıyorsanız önemlidir.
 
 ## Sorun giderme
 
