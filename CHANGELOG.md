@@ -7,6 +7,10 @@ Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürüml
 - **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
 - **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
 
+## 0.6.1
+
+- `.github/workflows/validate.yml` (CI) kaldırıldı. Depo sahibinin GitHub hesabı, reponun içeriğiyle ilgisi olmayan bir billing kilidi nedeniyle Actions job'larını hiç başlatamıyordu ("account is locked due to a billing issue") ve GitHub Actions'a bağımlı olunmaması tercih edildi. `scripts/validate.py` hâlâ var ve çalışıyor, sadece artık otomatik değil — commit öncesi elle çalıştırılmalı (`python3 scripts/validate.py`). README ve `docs/automation-readiness.md` bu değişikliği yansıtacak şekilde güncellendi.
+
 ## 0.6.0
 
 - `gider-kalemi-kontrolu`: çıktı sözleşmesi yeniden tasarlandı — zorunlu 5 kolonlu ana tablo (Gider | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Kanıt Durumu | Risk) artık tablo dışı serbest açıklamadan ayrıştırıldı; şemayı mekanik olarak kontrol eden `scripts/check_table.py` eklendi. Gerçek runtime testlerinde (3 farklı gider seti) içerik kalitesi her koşuda doğruydu, ama kolon başlıklarının birebir korunması garanti edilemedi — bu bilinen bir sınırlama olarak belgelendi (bkz. audit raporu).

@@ -1,6 +1,6 @@
 ---
 name: cagri-tarama
-description: Açık TÜBİTAK TEYDEB/ARDEB çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001, 3001 vb.) web üzerinden tarar ve son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti, çağrı dönemi gibi sayısal değerleri asla hafızadan yazmaz, mutlaka güncel kaynaktan çeker ve kaynağı belirtir. Kullanıcı "açık çağrılar neler", "1501'in son başvuru tarihi ne zaman", "hangi TÜBİTAK çağrılarına başvurabilirim", "çağrı takvimi çıkar", "bütçe üst limiti kaç TL" gibi bir şey sorduğunda, ya da /arge:tara komutu çalıştırıldığında bu skill'i mutlaka kullan.
+description: Açık TÜBİTAK TEYDEB/ARDEB çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001, 3001 vb.) web üzerinden tarar ve son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti, çağrı dönemi gibi sayısal değerleri asla hafızadan yazmaz, mutlaka güncel kaynaktan çeker ve kaynağı belirtir. Kullanıcı "açık çağrılar neler", "1501'in son başvuru tarihi ne zaman", "hangi TÜBİTAK çağrılarına başvurabilirim", "çağrı takvimi çıkar", "bütçe üst limiti kaç TL" gibi bir şey sorduğunda, ya da /arge-tesvik:tara komutu çalıştırıldığında bu skill'i mutlaka kullan.
 ---
 
 # Çağrı Tarama
@@ -31,6 +31,12 @@ Her zaman şu tabloyu kullan, açık çağrıları önce göster:
 Tablodan sonra, taramanın yapıldığı tarihi ve "bu bilgiler değişebilir, başvurudan önce resmi kaynaktan teyit edin" notunu ekle.
 
 Bir değer resmi kaynaktan doğrulandıysa (FACT), sadece ikincil/üçüncü taraf kaynaktan geldiyse veya birden fazla kaynak çelişiyorsa (CONFLICTING), bunu tabloda veya notlarda belirt — tam etiketleme modeli için `docs/evidence-protokolu.md`'ye bakılabilir.
+
+## Kesinlikle yapma
+
+- **Bulunamayan bir değeri (son tarih, bütçe üst limiti) tahmin etme.** "Bulunamadı, kaynak: [URL]" yaz veya hücreyi boş bırak, uydurma bir tarih/tutar yazma.
+- **Eski/geçmiş bir tarihi güncelmiş gibi sunma.** Taradığın sayfa eski bir dönemin çağrı bilgisini içeriyorsa bunu fark et, "güncel" diye sunma.
+- **İkincil/üçüncü taraf kaynağı resmi kaynakmış gibi sunma.** Sadece resmi sayfa bulunamadığında ikincil kaynak kullan ve bunu açıkça "resmi olmayan kaynak" diye etiketle.
 
 ## Zorunlu uyarı bloğu (çıktının sonuna ekle)
 

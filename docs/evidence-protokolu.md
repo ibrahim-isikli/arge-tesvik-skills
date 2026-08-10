@@ -2,7 +2,7 @@
 
 Bu dosya, `arge-tesvik` eklentisindeki skill'lerin paylaştığı iki ortak yapıyı tek yerde toplar: **evidence sınıflandırma modeli** (bir iddianın ne kadar güvenilir olduğunu etiketlemek için) ve **zorunlu uyarı bloğunun kanonik metni** (skill'ler arasında sürüklenmeyi önlemek için).
 
-Bu, kendi başına çalışan bir skill değildir — `cagri-tarama`, `gider-kalemi-kontrolu`, `donem-raporu-kontrolu` ve `itiraz-hazirlik` skill'leri, güncel/sayısal/hukuki bir iddiada bulunurken bu dosyadaki etiketleme modelini uygulamaya yönlendirilir.
+Bu, kendi başına çalışan bir skill değildir — `cagri-tarama`, `gider-kalemi-kontrolu`, `donem-raporu-kontrolu`, `proje-tutarlilik-kontrolu` ve `itiraz-hazirlik` skill'leri, güncel/sayısal/hukuki bir iddiada bulunurken bu dosyadaki etiketleme modelini uygulamaya yönlendirilir.
 
 ## 1. Evidence sınıflandırma modeli
 

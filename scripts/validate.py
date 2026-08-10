@@ -58,9 +58,7 @@ def parse_frontmatter(text: str, path: Path) -> dict[str, str]:
     return fm
 
 
-def validate_plugin_manifest() -> str | None:
-    path = ROOT / ".claude-plugin" / "plugin.json"
-    data = load_json(path)
+def validate_plugin_manifest(data: dict | None) -> str | None:
     if data is None:
         return None
 
@@ -187,7 +185,10 @@ def validate_commands(skill_names: set[str]) -> None:
 
         referenced = set(re.findall(r"`([a-z0-9-]+)`", text)) & skill_names
         if not referenced:
-            warn(f"{rel}: metin içinde bilinen bir skill adına (backtick içinde) referans bulunamadı")
+            error(
+                f"{rel}: metin içinde bilinen bir skill adına (backtick içinde) referans bulunamadı "
+                f"— kırık bir cross-reference olabilir (skill adı yanlış yazılmış veya skill kaldırılmış)"
+            )
 
 
 def validate_version_consistency(plugin_name_and_version: tuple[str | None, str | None]) -> None:
@@ -210,11 +211,11 @@ def validate_version_consistency(plugin_name_and_version: tuple[str | None, str 
 
 def main() -> int:
     plugin_path = ROOT / ".claude-plugin" / "plugin.json"
-    plugin_data = load_json(plugin_path) or {}
-    plugin_name = plugin_data.get("name")
-    plugin_version = plugin_data.get("version")
+    plugin_data = load_json(plugin_path)
+    plugin_name = (plugin_data or {}).get("name")
+    plugin_version = (plugin_data or {}).get("version")
 
-    validate_plugin_manifest()
+    validate_plugin_manifest(plugin_data)
     validate_marketplace(plugin_name)
     skill_names = validate_skills()
     validate_commands(skill_names)
