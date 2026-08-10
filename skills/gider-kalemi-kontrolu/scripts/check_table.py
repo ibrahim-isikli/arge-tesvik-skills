@@ -9,6 +9,14 @@ Uygunluğu | Gerekçelendirme Yeterliliği | Kanıt Durumu | Risk) gönderilmede
 domain/mevzuat doğrulayıcısı değildir — sadece çıktının şeklini (kolon
 başlıkları, kolon sayısı, izin verilen Kanıt Durumu/Risk değerleri) kontrol
 eder. Bağımlılık yok (stdlib).
+
+Exit code: 0 = şema doğru ("OK"). 1 = şema hatası ("BAŞARISIZ", hatalar
+listelenir). 2 = kullanım hatası (dosya yok / okunamıyor / argüman eksik).
+
+Bilinen sınırlama: kolon içeriği kontrolü basit bir alt-dize (substring)
+eşleşmesidir, anlam analizi yapmaz — ör. "FACT değildir" gibi olumsuzlama
+içeren bir hücre de FACT etiketi "geçtiği" için OK sayılabilir. Bu script
+sadece yapısal bir kontroldür, semantik doğrulama yerine geçmez.
 """
 
 from __future__ import annotations
@@ -69,6 +77,9 @@ def main() -> int:
         text = open(sys.argv[1], encoding="utf-8").read()
     except FileNotFoundError:
         print(f"HATA: dosya bulunamadı: {sys.argv[1]}")
+        return 2
+    except (UnicodeDecodeError, OSError) as e:
+        print(f"HATA: dosya okunamadı (geçerli bir UTF-8 metin dosyası değil): {sys.argv[1]} — {e}")
         return 2
 
     lines = text.splitlines()
