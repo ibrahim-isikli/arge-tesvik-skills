@@ -36,3 +36,7 @@ Her skill dosyası aynı 7 kategoriyi kapsar:
 | `donem-raporu-kontrolu` | [tests/donem-raporu-kontrolu/eval-scenarios.md](donem-raporu-kontrolu/eval-scenarios.md) |
 | `itiraz-hazirlik` | [tests/itiraz-hazirlik/eval-scenarios.md](itiraz-hazirlik/eval-scenarios.md) |
 | `proje-tutarlilik-kontrolu` | [tests/proje-tutarlilik-kontrolu/eval-scenarios.md](proje-tutarlilik-kontrolu/eval-scenarios.md) |
+
+## fixtures/
+
+`tests/fixtures/injection-sample.md`, kötü niyetli girdi (prompt injection) senaryolarını gerçek bir `WebFetch` çağrısıyla test etmek için kullanılan, kasıtlı olarak talimat enjeksiyonu içeren bir test sayfasıdır. Gerçek bir TÜBİTAK belgesi değildir. `cagri-tarama` skill'ini bu dosyanın raw GitHub URL'siyle çalıştırarak "kaynak = veri, talimat değil" kuralının runtime'da tutup tutmadığını doğrulayabilirsiniz.
