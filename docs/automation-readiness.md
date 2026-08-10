@@ -6,13 +6,15 @@ Bu doküman, repoyu şu hedef otomasyon modeline göre değerlendirir:
 push → validate → tests → output contract checks → Claude review → PASS/FAIL
 ```
 
-**Bu bir workflow implementasyonu değildir** — sadece mevcut script/test envanterinin bu modele göre nereye oturduğunu, hangi parçaların CI'da gerçekten çalıştırılabileceğini ve hangilerinin çalıştırılmaması gerektiğini analiz eder. `.github/workflows/` bu turda değiştirilmedi.
+**Bu bir workflow implementasyonu değildir** — sadece mevcut script/test envanterinin bu modele göre nereye oturduğunu, hangi parçaların CI'da gerçekten çalıştırılabileceğini ve hangilerinin çalıştırılmaması gerektiğini analiz eder.
+
+**Güncelleme:** Bu depoda kısa bir süre `.github/workflows/validate.yml` adında minimal bir CI workflow'u vardı (`scripts/validate.py`'ı push/pull_request'te çalıştırıyordu). Bu workflow kaldırıldı çünkü depo sahibinin GitHub hesabı, reponun içeriğiyle ilgisi olmayan bir billing kilidi nedeniyle Actions job'larını hiç başlatamıyordu ("The job was not started because your account is locked due to a billing issue.") ve depo sahibi GitHub Actions'a bağımlı olmak istemedi. Aşağıdaki analiz, "CI'da çalışıyor" ifadelerini artık **potansiyel/varsayımsal** olarak okuyun — şu an hiçbir şey otomatik çalışmıyor, hepsi elle (`python3 scripts/validate.py`) çalıştırılıyor.
 
 ## 1. Envanter: hangi script/test ne gerektiriyor
 
 | Bileşen | Deterministik mi? | Network/MCP gerekli mi? | Claude API/CLI gerekli mi? | CI'da şu an çalışıyor mu? |
 |---|---|---|---|---|
-| `scripts/validate.py` | **Evet** — stdlib, aynı girdi = aynı çıktı | Hayır | Hayır | **Evet** (`.github/workflows/validate.yml`, push/pull_request) |
+| `scripts/validate.py` | **Evet** — stdlib, aynı girdi = aynı çıktı | Hayır | Hayır | **Hayır** — CI workflow'u kaldırıldı (hesap billing kilidi); şu an sadece elle çalıştırılıyor |
 | `skills/gider-kalemi-kontrolu/scripts/check_table.py` | **Evet** — stdlib | Hayır | Hayır (ama girdisi genelde bir Claude çıktısıdır) | Hayır |
 | `tests/*/eval-scenarios.md` (7 dosya) | Hayır — LLM çıktısı, insan/LLM-grader yorumu gerekir | Evet (bazıları: cagri-tarama, patent-on-arastirma) | **Evet** (`claude -p --plugin-dir .`) | Hayır |
 | `tests/golden/` (framework, henüz proje verisi yok) | Kısmen — `expected/*.yaml` deterministik, karşılaştırma adımı değil | Skill'e göre değişir | **Evet** | Hayır |
@@ -20,7 +22,7 @@ push → validate → tests → output contract checks → Claude review → PAS
 
 ## 2. CI'da çalışması gereken (hedef modelin "validate" ve "output contract checks" adımları)
 
-- **`scripts/validate.py`** — zaten CI'da. Deterministik, hızlı (<1sn), bağımlılıksız, secret gerektirmiyor. Bu, hedef modelin "validate" adımının tam karşılığı.
+- **`scripts/validate.py`** — CI'da çalışmıyor (workflow kaldırıldı), ama teknik olarak buna en uygun aday: deterministik, hızlı (<1sn), bağımlılıksız, secret gerektirmiyor. Hedef modelin "validate" adımının tam karşılığı — GitHub Actions dışında bir CI sağlayıcısı (veya hesap billing sorunu çözülürse tekrar GitHub Actions) kullanılırsa yeniden bağlanabilir.
 - **`skills/gider-kalemi-kontrolu/scripts/check_table.py`** — CI'da **doğrudan** çalıştırılamaz çünkü girdisi (bir gider tablosu) yoktur; bir Claude oturumunun ürettiği çıktıya ihtiyaç duyar. CI'da anlamlı olması için ya (a) sabit bir örnek tablo dosyası test-fixture olarak commit edilip script buna karşı çalıştırılabilir (bu, script'in kendi doğruluğunu test eder, skill'in davranışını değil), ya da (b) bir "Claude review" adımının çıktısı olarak üretilip ardından bu script'e verilir (aşağıya bakın). Şu an ikisi de kurulu değil.
 
 ## 3. CI'da çalıştırılMAMALI (network/LLM bağımlılığı, non-determinism, maliyet)
@@ -41,14 +43,14 @@ Hedef modeldeki "Claude review" adımı (ör. `tests/` senaryolarını veya `tes
 ## 5. Şu anki gerçekçi otomasyon seviyesi
 
 ```
-push/PR → scripts/validate.py (CI'da, gerçek, deterministik)  ✅ kurulu
+push/PR → scripts/validate.py (CI'da, gerçek, deterministik)  ❌ CI'da değil (elle çalıştırılıyor)
        → skill davranış testleri                               ❌ kurulu değil (manuel)
        → output contract checks (check_table.py)                ❌ kurulu değil (manuel)
        → Claude review                                          ❌ kurulu değil, secret yok
-       → PASS/FAIL                                               kısmi (sadece yapısal)
+       → PASS/FAIL                                               yok (tamamen manuel)
 ```
 
-Yani hedef modelin **sadece ilk adımı** ("validate") gerçekten otomatik ve CI'da çalışıyor. Geri kalanı bu depoda bilinçli olarak manuel/insan-tetiklemeli bırakıldı çünkü LLM-bağımlı adımların CI'a bağlanması maliyet, non-determinism ve dış servis kırılganlığı riski taşıyor — bunlar çözülmeden otomatikleştirmek "yeşil CI ama anlamsız" veya "kırmızı CI ama kod sorunsuz" durumlarına yol açar.
+Yani hedef modelin **hiçbir adımı** şu an otomatik/CI'da çalışmıyor — `scripts/validate.py` teknik olarak buna en hazır bileşen olsa da, GitHub Actions'a bağlı bir CI olmadığı için commit öncesi elle çalıştırılması gerekiyor. Geri kalanı (skill davranış testleri, output contract checks, Claude review) zaten bilinçli olarak manuel/insan-tetiklemeli bırakılmıştı çünkü LLM-bağımlı adımların CI'a bağlanması maliyet, non-determinism ve dış servis kırılganlığı riski taşıyor.
 
 ## 6. Öneri (uygulanmadı, sadece kayıt)
 
