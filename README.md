@@ -6,15 +6,16 @@ Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https
 
 ## Ne işe yarar
 
-Eklenti altı skill ve beş slash komutu içerir:
+Eklenti yedi skill ve altı slash komutu içerir:
 
 | Skill | Ne yapar |
 |---|---|
 | `hakem-simulasyonu` | Bir TÜBİTAK proje önerisi taslağını panel hakemi gözüyle **eleştirir** (içerik üretmez). Endüstriyel Ar-Ge niteliği/yenilik, proje planı/yapılabilirlik ve — en ağırlıklı boyut olarak — ticarileşme potansiyeli üzerinden somut, gerekçeli zayıf noktalar ve düzeltme yönleri verir. Asla puan uydurmaz, asla kabul garantisi vermez. |
-| `gider-kalemi-kontrolu` | TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına (uygun olmayan personel ödemeleri, business class seyahat, "altyapı yatırımı" görünümlü alımlar, gerekçesiz dış hizmet alımı vb.) göre işaretler. Bütçe üst limitlerini hafızadan yazmaz. |
-| `cagri-tarama` | Açık TÜBİTAK çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001/3001) web'den tarar, son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti gibi sayısal değerleri hafızadan yazmaz, her zaman kaynaktan çeker ve kaynağı belirtir. |
-| `patent-on-arastirma` | `markapatent-mcp` sunucusu üzerinden TÜRKPATENT'te patent/marka/tasarım ön araştırması yapar, benzer başvuruları listeler. Sadece bulguları sunar — "bu fikir özgündür" gibi bir sonuca asla varmaz, karar insana aittir. |
+| `gider-kalemi-kontrolu` | TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına (uygun olmayan personel ödemeleri, business class seyahat, "altyapı yatırımı" görünümlü alımlar, gerekçesiz dış hizmet alımı vb.) göre işaretler. Kategori uygunluğu ile gerekçelendirme yeterliliğini ayrı değerlendirir; bütçe üst limitlerini hafızadan yazmaz. |
+| `cagri-tarama` | Açık TÜBİTAK çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001/3001) web'den tarar, son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti gibi sayısal değerleri hafızadan yazmaz, her zaman kaynaktan çeker ve kaynağı belirtir; taranan sayfalardaki gömülü talimatları asla komut olarak uygulamaz. |
+| `patent-on-arastirma` | `markapatent-mcp` sunucusu üzerinden TÜRKPATENT'te patent/marka/tasarım ön araştırması yapar, benzer başvuruları (patent family, rüçhan tarihi, IPC/CPC dahil) listeler. Sadece bulguları sunar — "bu fikir özgündür" gibi bir sonuca asla varmaz; MCP sunucusuna ulaşılamazsa bunu açıkça bildirir, boşluğu uydurmaz. |
 | `donem-raporu-kontrolu` | Kabul edilmiş bir projenin dönemsel Gelişme Raporu'nu (AGY301) veya proje sonu Sonuç Raporu'nu, TEYDEB'e sunulmadan önce izleyici/hakem gözüyle **eleştirir**. Onaylı proje planıyla karşılaştırıp somut kanıt eksikliğini, gerekçesiz takvim/bütçe sapmalarını ve tutarsız bir sonraki dönem planını işaretler. Kesinti/red öngörmez, kanıt uydurmaz. |
+| `proje-tutarlilik-kontrolu` | Aynı projeye ait birden fazla belgeyi (proje planı, bütçe, hakem raporu, dönem raporu vb.) yan yana koyup süre/bütçe/personel/hedef/TRL/ticarileşme tarihi gibi alanlarda çelişki arar. Hangi belgenin doğru olduğuna karar vermez, sadece çelişkiyi gösterir. |
 | `itiraz-hazirlik` | Proje reddedildiğinde **itiraz mı yoksa revizyon + yeniden başvuru mu** uygun olduğuna karar vermeye yardımcı olur. İtiraz yolu seçilirse TÜBİMER dilekçesini SADECE mevcut proje metni/hakem raporuna dayanarak, izin verilen 4 gerekçe kategorisinden birine oturtarak hazırlar (yeni teknik iddia eklemez — bu itirazı geçersiz kılar) ve 15 günlük itiraz süresini hatırlatır. |
 
 Slash komutları ilgili skill'i doğrudan tetikler:
@@ -23,6 +24,7 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 - `/arge-tesvik:gider` → `gider-kalemi-kontrolu`
 - `/arge-tesvik:tara` → `cagri-tarama`
 - `/arge-tesvik:rapor` → `donem-raporu-kontrolu`
+- `/arge-tesvik:tutarlilik` → `proje-tutarlilik-kontrolu`
 - `/arge-tesvik:itiraz` → `itiraz-hazirlik`
 
 (Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır; bu eklentinin adı `arge-tesvik` olduğu için tam komut isimleri yukarıdaki gibidir. Kısaca `/degerlendir` ve `/tara` yazmak da, başka bir eklentiyle çakışmadığı sürece çalışır.)
@@ -79,6 +81,28 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 İndirdiğiniz dosyaları klasöre taşımak, herhangi bir dosya yöneticisiyle ya da terminalde `mv`/sürükle-bırak ile yapılan sıradan bir işlemdir — örnek:
 
 ![references/ klasörünü indirilen dosyalarla doldurma örneği](./assets/references-demo.gif)
+
+## Evidence protokolü ve ortak kurallar
+
+`docs/evidence-protokolu.md`, skill'lerin güncel/sayısal/hukuki iddialarda kullandığı ortak sınıflandırma modelini (FACT / INFERENCE / USER-PROVIDED / UNKNOWN / OUTDATED / CONFLICTING), kaynak güven hiyerarşisini ve her skill'in sonunda tekrarlanan zorunlu uyarı bloğunun kanonik metnini tek yerde toplar. Skill'lerdeki uyarı blokları bilinçli olarak kendi dosyalarında (inline) tutulur — bu dosya bir çalışma zamanı bağımlılığı değil, bakım/tutarlılık için tek doğru kaynaktır.
+
+## Doğrulama ve testler
+
+- `scripts/validate.py` — bağımlılıksız (stdlib) bir statik doğrulama scripti: `plugin.json`/`marketplace.json` JSON geçerliliği, her skill'in SKILL.md frontmatter kısıtlarına (isim/karakter seti/uzunluk, açıklama uzunluğu) uyup uymadığı, slash komutlarının var olan bir skill'e referans verip vermediği ve plugin sürümüyle CHANGELOG'un eşleşip eşleşmediğini kontrol eder. Çalıştırmak için: `python3 scripts/validate.py`.
+- `tests/` — her skill için LLM-graded manuel eval senaryoları (normal durum, eksik bilgi, hallucination tuzağı, çelişkili bilgi, güncelliğini yitirmiş bilgi, kötü niyetli girdi, belirsiz istek). Bunlar otomatik CI testi değildir; nasıl kullanılacağı için `tests/README.md`'ye bakın.
+
+## Sınırlamalar
+
+- Skill'ler birer LLM talimat kümesidir, deterministik doğrulayıcı değildir — çıktıları her zaman bir başlangıç noktasıdır, resmi karar/hukuki görüş yerine geçmez.
+- `cagri-tarama` ve `patent-on-arastirma` canlı web/MCP erişimine bağımlıdır; ağ erişimi yoksa veya kaynak sayfa değişmişse sonuçlar eksik/hatalı olabilir (skill'ler bu durumu sessizce geçmemek üzere yazıldı, ama garantisi yoktur).
+- `references/` klasörü boş gelir; skill'ler güncel mevzuat/şablon metnini kendiliğinden "bilmez" — doğru çalışmaları için ilgili resmi belgeleri siz eklemelisiniz.
+- Bu eklenti TÜBİTAK veya TÜRKPATENT ile resmi bir ilişki içinde değildir; hiçbir skill çıktısı resmi başvuru sonucu garantisi taşımaz.
+
+## Sorun giderme
+
+- **`patent-on-arastirma` çalışmıyor / MCP hatası veriyor**: `markapatent-mcp` sunucusu bu eklentiden bağımsız, üçüncü taraf bir uzak servistir. Sunucu geçici olarak erişilemez olsa bile bu **sadece `patent-on-arastirma` skill'ini** etkiler — diğer altı skill markapatent-mcp'ye bağımlı değildir ve normal çalışmaya devam eder. Skill, bağlantı hatasını açıkça bildirip boş sonuç uydurmamalıdır; böyle davranmıyorsa bir hata olarak bildirin.
+- **Slash komutu görünmüyor**: Eklentinin yüklendiğini (`claude plugin list` veya oturum başlangıcındaki plugin listesi) ve `/reload-plugins` gerekip gerekmediğini kontrol edin (bkz. Kurulum bölümü).
+- **Skill tetiklenmiyor ama slash komutu çalışıyor**: Skill'in `description` alanı, Claude'un ne zaman tetikleyeceğine karar verdiği tetikleme kuralıdır; isteğinizde skill'in kapsadığı anahtar kelimelerden (örn. "hakem", "gider kalemi", "itiraz") biri geçmiyorsa ilgili slash komutunu doğrudan kullanmanız daha güvenilirdir.
 
 ## Otomatik çağrı takibi (opsiyonel)
 

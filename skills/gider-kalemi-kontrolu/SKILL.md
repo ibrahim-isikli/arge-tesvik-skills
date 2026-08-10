@@ -34,9 +34,10 @@ Her kalemi ilgili kategoriye oturttuktan sonra, aşağıdaki kalıplardan herhan
 
 1. Kullanıcının paylaştığı bütçe/gider dökümündeki her kalemi yukarıdaki 5 kategoriden birine ata. Hiçbirine net oturmuyorsa bunu ayrıca belirt, kategori uydurma.
 2. Her kalem için ilgili kategorinin bilinen ret kalıplarını kontrol et ve eşleşme varsa somut olarak göster: *"Bu kalem [X], çünkü [gerekçe]."*
-3. Kalemin proje faaliyetleriyle bağlantısını taslakta/açıklamada bulamıyorsan bunu ayrı bir bulgu olarak işaretle — kategori ve tutar doğru olsa bile bağlantı kurulmamışsa hakem sorar.
-4. Bütçe üst limiti, kişi/gün ücret tavanı gibi güncel sayısal sınırlar soruluyorsa hafızandan yazma; `cagri-tarama` skill'ini çalıştırmasını öner ya da doğrudan resmi kaynağı tara.
+3. **İki ayrı boyutu birbirine karıştırma**: (a) kalem TEYDEB'in kabul ettiği gider türüne uyuyor mu ("uygunluk") ve (b) kalemin bu projeyle bağlantısı taslakta/açıklamada yeterince gerekçelendirilmiş mi ("gerekçelendirme"). Kategorisi tamamen uygun bir kalem, proje faaliyetiyle bağlantısı kurulmadığı için yine de zayıf olabilir — bu ikisini çıktıda ayrı sütunlarda değerlendir, tek bir "uygun/şüpheli" yargısında birleştirme.
+4. Bütçe üst limiti, kişi/gün ücret tavanı gibi güncel sayısal sınırlar soruluyorsa hafızandan yazma; `cagri-tarama` skill'ini çalıştırmasını öner ya da doğrudan resmi kaynağı tara. Böyle bir sınırı resmi kaynaktan doğrulayamıyorsan bunu UNKNOWN olarak işaretle, tahmini bir rakam verme (bkz. `docs/evidence-protokolu.md`).
 5. Hiçbir kalemi "bu kesin kabul edilir" diye onaylama — en fazla "bilinen ret kalıplarından hiçbirine uymuyor" diyebilirsin.
+6. Aynı kalemin tutarı, paylaşılan belge içinde birden fazla yerde (örn. özet tablo ve ayrıntılı döküm) farklı gösteriliyorsa bunu ayrı bir bulgu olarak işaretle. Kullanıcı bu bütçeyi başka bir proje belgesiyle (proje planı, hakem raporu vb.) karşılaştırmak isterse `proje-tutarlilik-kontrolu` skill'ini öner — bu skill tek belge içindeki kalemleri denetler, belgeler arası karşılaştırma yapmaz.
 
 ## Çıktı formatı
 
@@ -45,9 +46,9 @@ Her zaman şu tabloyu kullan:
 ```markdown
 # Gider Kalemi Kontrolü
 
-| Kalem | Kategori | Bulgu | Gerekçe |
-|---|---|---|---|
-| ... | Personel / Seyahat / Hizmet Alımı / Alet-Teçhizat-Yazılım-Yayın / Malzeme-Sarf | Uygun görünüyor / Şüpheli / Kategorisi belirsiz | ... |
+| Kalem | Kategori | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Gerekçe |
+|---|---|---|---|---|
+| ... | Personel / Seyahat / Hizmet Alımı / Alet-Teçhizat-Yazılım-Yayın / Malzeme-Sarf | Uygun görünüyor / Şüpheli / Kategorisi belirsiz | Yeterli / Zayıf / Bağlantı kurulmamış | ... |
 
 ## Genel örüntü
 [Bütçenin genelinde tekrar eden bir sorun varsa buraya]
