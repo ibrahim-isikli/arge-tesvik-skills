@@ -6,7 +6,7 @@ Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https
 
 ## Ne işe yarar
 
-Eklenti beş skill ve dört slash komutu içerir:
+Eklenti altı skill ve beş slash komutu içerir:
 
 | Skill | Ne yapar |
 |---|---|
@@ -14,6 +14,7 @@ Eklenti beş skill ve dört slash komutu içerir:
 | `gider-kalemi-kontrolu` | TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına (uygun olmayan personel ödemeleri, business class seyahat, "altyapı yatırımı" görünümlü alımlar, gerekçesiz dış hizmet alımı vb.) göre işaretler. Bütçe üst limitlerini hafızadan yazmaz. |
 | `cagri-tarama` | Açık TÜBİTAK çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001/3001) web'den tarar, son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti gibi sayısal değerleri hafızadan yazmaz, her zaman kaynaktan çeker ve kaynağı belirtir. |
 | `patent-on-arastirma` | `markapatent-mcp` sunucusu üzerinden TÜRKPATENT'te patent/marka/tasarım ön araştırması yapar, benzer başvuruları listeler. Sadece bulguları sunar — "bu fikir özgündür" gibi bir sonuca asla varmaz, karar insana aittir. |
+| `donem-raporu-kontrolu` | Kabul edilmiş bir projenin dönemsel Gelişme Raporu'nu (AGY301) veya proje sonu Sonuç Raporu'nu, TEYDEB'e sunulmadan önce izleyici/hakem gözüyle **eleştirir**. Onaylı proje planıyla karşılaştırıp somut kanıt eksikliğini, gerekçesiz takvim/bütçe sapmalarını ve tutarsız bir sonraki dönem planını işaretler. Kesinti/red öngörmez, kanıt uydurmaz. |
 | `itiraz-hazirlik` | Proje reddedildiğinde **itiraz mı yoksa revizyon + yeniden başvuru mu** uygun olduğuna karar vermeye yardımcı olur. İtiraz yolu seçilirse TÜBİMER dilekçesini SADECE mevcut proje metni/hakem raporuna dayanarak, izin verilen 4 gerekçe kategorisinden birine oturtarak hazırlar (yeni teknik iddia eklemez — bu itirazı geçersiz kılar) ve 15 günlük itiraz süresini hatırlatır. |
 
 Slash komutları ilgili skill'i doğrudan tetikler:
@@ -21,6 +22,7 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 - `/arge-tesvik:degerlendir` → `hakem-simulasyonu`
 - `/arge-tesvik:gider` → `gider-kalemi-kontrolu`
 - `/arge-tesvik:tara` → `cagri-tarama`
+- `/arge-tesvik:rapor` → `donem-raporu-kontrolu`
 - `/arge-tesvik:itiraz` → `itiraz-hazirlik`
 
 (Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır; bu eklentinin adı `arge-tesvik` olduğu için tam komut isimleri yukarıdaki gibidir. Kısaca `/degerlendir` ve `/tara` yazmak da, başka bir eklentiyle çakışmadığı sürece çalışır.)

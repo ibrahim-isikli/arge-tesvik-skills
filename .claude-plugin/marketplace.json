@@ -1,6 +1,6 @@
 {
   "name": "arge-tesvik-skills",
-  "description": "Türkiye'deki Ar-Ge teşvik süreçleri için hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması ve itiraz hazırlığı skill'lerini sağlayan marketplace.",
+  "description": "Türkiye'deki Ar-Ge teşvik süreçleri için hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması, dönem/gelişme raporu kontrolü ve itiraz hazırlığı skill'lerini sağlayan marketplace.",
   "owner": {
     "name": "İbrahim Işıklı"
   },
@@ -8,7 +8,7 @@
     {
       "name": "arge-tesvik",
       "source": "./",
-      "description": "TÜBİTAK TEYDEB/ARDEB hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması ve ret sonrası itiraz hazırlığı. TÜBİTAK ile ilişkili değildir."
+      "description": "TÜBİTAK TEYDEB/ARDEB hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması, dönem/gelişme raporu kontrolü ve ret sonrası itiraz hazırlığı. TÜBİTAK ile ilişkili değildir."
     }
   ]
 }
