@@ -2,6 +2,10 @@
 
 Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürümler [Semantic Versioning](https://semver.org)'ı takip eder.
 
+## 0.4.0
+
+- `donem-raporu-kontrolu` skill'i ve `/arge-tesvik:rapor` komutu eklendi. Kabul edilmiş bir TEYDEB projesinin dönemsel Gelişme Raporu'nu (AGY301) veya proje sonu Sonuç Raporu'nu, onaylı proje planıyla karşılaştırarak izleyici/hakem gözüyle eleştirir; somut kanıt eksikliğini, gerekçesiz takvim/bütçe sapmalarını ve tutarsız bir sonraki dönem planını işaretler.
+
 ## 0.3.0
 
 - `gider-kalemi-kontrolu` skill'i ve `/arge-tesvik:gider` komutu eklendi. TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına göre işaretler.
