@@ -1,0 +1,8 @@
+# Şablon — beklenen evidence-protokolü etiketleri (bkz. docs/evidence-protokolu.md).
+# Tam alan açıklamaları için ../../SCHEMA.md'ye bakın.
+
+- id: "E001"
+  skill: "[ör. gider-kalemi-kontrolu]"
+  claim: "[Değerlendirilen iddia, ör. 'Kişi/gün ücret tavanı']"
+  expected_label: "[FACT | INFERENCE | USER-PROVIDED | UNKNOWN | OUTDATED | CONFLICTING]"
+  notes: "[Kısa açıklama]"

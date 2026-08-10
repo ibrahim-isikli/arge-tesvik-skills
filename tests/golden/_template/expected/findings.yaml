@@ -1,0 +1,11 @@
+# Şablon — beklenen bulgular. Tam alan açıklamaları için ../../SCHEMA.md'ye bakın.
+# İlgili skill'i documents/ ile çalıştırdıktan sonra, çıktının burada listelenen
+# her "required: true" bulguyu gerçekten yakalayıp yakalamadığını kontrol edin.
+
+- id: "F001"
+  skill: "[ör. gider-kalemi-kontrolu]"
+  category: "[ör. bilinen-ret-kalibi | gerekce-eksikligi | kategori-belirsiz]"
+  description: "[Yakalanması beklenen bulgunun kısa açıklaması]"
+  source_document: "[manifest.yaml'daki belge kimliği]"
+  source_quote_contains: "[çıktıda geçmesi beklenen anahtar ifade]"
+  required: true

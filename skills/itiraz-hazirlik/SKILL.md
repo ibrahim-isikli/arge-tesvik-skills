@@ -23,7 +23,7 @@ Bu ikisini karıştırmamak kritik: gerçekten zayıf bir noktayı "itiraz" olar
    - Gerçek bir eksiklik/zayıflıksa → itiraz adayı değil. Bunu açıkça söyle ve revizyon + `hakem-simulasyonu` ile yeniden değerlendirme öner.
 4. İtiraz adayı olan her madde için, hangi kategoriye (sonuç kararı / değerlendirici davranışı / yerinde inceleme / diğer) girdiğini belirt ve dilekçe taslağını o kategori başlığı altında yaz.
 5. Taslağı yazarken kendi kendini denetle: eklediğin her cümlenin proje metninde veya hakem raporunda karşılığı olduğunu doğrula. Karşılığı olmayan, "aslında şunu da yapacaktık" tarzı bir cümle sızdıysa onu çıkar ve kullanıcıyı uyar.
-6. TÜBİMER başvurusunun idari ücretinin (Vakıfbank üzerinden yatırılan, güncel tutarı `cagri-tarama` skill'iyle veya doğrudan tubitak.gov.tr'den teyit edilmeli) ödenmesi gerektiğini hatırlat — tutarı hafızandan yazma.
+6. TÜBİMER başvurusunun idari ücretinin (Vakıfbank üzerinden yatırılan, güncel tutarı `cagri-tarama` skill'iyle veya doğrudan tubitak.gov.tr'den teyit edilmeli) ödenmesi gerektiğini hatırlat — tutarı hafızandan yazma; doğrulanamıyorsa UNKNOWN olarak işaretle (bkz. `docs/evidence-protokolu.md`).
 
 ## Çıktı formatı
 

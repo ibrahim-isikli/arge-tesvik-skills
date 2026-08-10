@@ -17,12 +17,12 @@ TEYDEB'de kabul edilen bir proje, dönemsel Gelişme Raporu'yla (AGY301 formatı
 
 ## Nasıl çalış
 
-1. Kullanıcıdan hem **onaylı proje planını** (AGY101, iş paketleri/hedefler/takvim/bütçe) hem de **rapor taslağını** iste. Onaylı plan paylaşılmadan raporu değerlendirme — karşılaştıracak bir referans olmadan yapılan eleştiri yüzeysel kalır ve bunu kullanıcıya açıkça söyle.
+1. Kullanıcıdan hem **onaylı proje planını** (AGY101, iş paketleri/hedefler/takvim/bütçe) hem de **rapor taslağını** iste. Sadece rapor taslağı paylaşıldıysa, önce onaylı planı iste. Kullanıcı planı sağlayamıyorsa değerlendirmeyi tamamen reddetme; bunun yerine raporun **en başında, göze çarpan bir "Önemli kısıtlama" notuyla** bu değerlendirmenin plana kıyasla değil, sadece raporun kendi iç tutarlılığı ve kanıt yeterliliği üzerinden yapıldığını açıkça belirt. Bu iki mod arasındaki fark önemlidir: sessizce plansız bir "tam" değerlendirme sunmak yerine, kısıtlamayı her zaman görünür kıl.
 2. Raporu iş paketi/hedef bazında planla karşılaştır:
    - Her hedef için raporun **somut, ölçülebilir kanıt** (test sonucu, prototip durumu, ölçüm verisi, demo) sunup sunmadığını kontrol et. "Çalışmalar devam etmektedir", "ilerleme kaydedilmiştir" gibi kanıtsız/belirsiz ifadeleri doğrudan işaretle.
    - Takvim veya kapsamda bir sapma varsa, raporun bunu **açıkça belirtip gerekçelendirip gerekçelendirmediğini** kontrol et. Sapmanın kendisi değil, sessiz geçilmiş/gerekçesiz sapma zayıf noktadır.
-   - Bütçe gerçekleşmesi planla tutarsızsa, satır bazlı kontrol gerekiyorsa `gider-kalemi-kontrolu` skill'ini ayrıca çalıştırmayı öner.
-3. Bir sonraki dönem planının, mevcut durumdan (gecikmeler dahil) gerçekçi biçimde türetilip türetilmediğini kontrol et — önceki dönemde gecikilen bir hedefin bir sonraki dönemde gerekçesiz biçimde "yetişecek" varsayılması sık görülen bir zayıflıktır.
+   - Bütçe gerçekleşmesi planla tutarsızsa, satır bazlı kontrol gerekiyorsa `gider-kalemi-kontrolu` skill'ini ayrıca çalıştırmayı öner. Raporun bir bölümü ("İş paketi 2 tamamlandı") başka bir belgeyle (örn. harcama özeti) çelişiyorsa bunu ayrı bir bulgu olarak işaretle ve gerekirse `proje-tutarlilik-kontrolu` skill'ini öner.
+3. Bir sonraki dönem planının, mevcut durumdan (gecikmeler dahil) gerçekçi biçimde türetilip türetilmediğini kontrol et — önceki dönemde gecikilen bir hedefin bir sonraki dönemde gerekçesiz biçimde "yetişecek" varsayılması sık görülen bir zayıflıktır. Rapordaki bir iddianın kanıtı olup olmadığını değerlendirirken FACT (somut kanıtla gösterilmiş) / USER-PROVIDED (sadece anlatılmış, kanıt eklenmemiş) / UNKNOWN (ne kanıt ne açıklama var) ayrımını kullan (bkz. `docs/evidence-protokolu.md`).
 4. Sonuç Raporu değerlendiriyorsan, ek olarak projenin başlangıçtaki endüstriyel Ar-Ge/yenilik iddiasının nihai çıktıyla (somut ürün/prototip/patent/yayın vb.) karşılanıp karşılanmadığını kontrol et.
 5. Her zayıf nokta için taslaktan **doğrudan alıntı** yap, sonra bunun neden izleyiciyi ikna etmeyeceğini açıkla. Genel geçer eleştiri yazma.
 6. Rapor bittiğinde ÜYZ ve sorumluluk hatırlatmalarını ekle (aşağıda).

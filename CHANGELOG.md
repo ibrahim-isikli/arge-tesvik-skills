@@ -2,6 +2,32 @@
 
 Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürümler [Semantic Versioning](https://semver.org)'ı takip eder.
 
+**Sürümleme kuralı:**
+- **MAJOR** — geriye dönük uyumsuz bir değişiklik (skill/komut kaldırma, isim değişikliği, davranış tersine çevrilmesi).
+- **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
+- **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
+
+## 0.6.0
+
+- `gider-kalemi-kontrolu`: çıktı sözleşmesi yeniden tasarlandı — zorunlu 5 kolonlu ana tablo (Gider | Kategori Uygunluğu | Gerekçelendirme Yeterliliği | Kanıt Durumu | Risk) artık tablo dışı serbest açıklamadan ayrıştırıldı; şemayı mekanik olarak kontrol eden `scripts/check_table.py` eklendi. Gerçek runtime testlerinde (3 farklı gider seti) içerik kalitesi her koşuda doğruydu, ama kolon başlıklarının birebir korunması garanti edilemedi — bu bilinen bir sınırlama olarak belgelendi (bkz. audit raporu).
+- `patent-on-arastirma`: MCP durumunu artık açık `UNAVAILABLE`/`DEGRADED` etiketleriyle raporluyor; var olmayan alternatif patent arama araçlarından bahsetmeyi yasaklayan kural eklendi (gerçek runtime testinde doğrulanan bir P3 bulgusunun düzeltilmesi).
+- `docs/evidence-protokolu.md`: 5 bulgu-üreten skill arasında Status/Finding/Evidence/Risk/Recommendation/Source kavramlarının hangilerinin gerçekten ortak olduğuna dair bir analiz eklendi (Finding/Evidence ortak; Risk/Status kasıtlı olarak evrensel yapılmadı çünkü bazı skill'ler kurumsal sonuç tahmininden kaçınıyor).
+- `.github/workflows/validate.yml` eklendi: push/pull_request'te `scripts/validate.py` çalıştıran minimal CI.
+- `tests/golden/` eklendi: çoklu belge/çoklu skill/cross-skill regression için yapılandırılmış bir golden-dataset çerçevesi (`_template/` + `SCHEMA.md`). Henüz gerçek bir proje verisi içermiyor.
+- 13 runtime regresyon senaryosu (prompt injection, MCP failure, missing/outdated/conflicting bilgi) bu turun değişikliklerinden sonra yeniden doğrulandı; regresyon bulunmadı.
+
+## 0.5.0
+
+- `proje-tutarlilik-kontrolu` skill'i ve `/arge-tesvik:tutarlilik` komutu eklendi. Aynı projeye ait birden fazla belge arasında süre/bütçe/personel/hedef/TRL/ticarileşme tarihi gibi alanlarda çelişki arar; hangi belgenin doğru olduğuna karar vermez.
+- `docs/evidence-protokolu.md` eklendi: FACT/INFERENCE/USER-PROVIDED/UNKNOWN/OUTDATED/CONFLICTING sınıflandırma modeli, kaynak güven hiyerarşisi ve zorunlu uyarı bloğunun kanonik metni. `cagri-tarama`, `gider-kalemi-kontrolu`, `donem-raporu-kontrolu` ve `itiraz-hazirlik` bu modele kısa pointer'larla bağlandı (mevcut inline uyarı blokları korunarak).
+- `patent-on-arastirma`: MCP bağlantı hatası/timeout, boş/kısmi sonuç, çok fazla sonuç ve patent family (rüçhan tarihi bazlı birleştirme) için açık talimatlar eklendi; MCP çıktısının veri olarak ele alınıp talimat olarak yorumlanmayacağı netleştirildi.
+- `cagri-tarama`: taranan web sayfalarındaki gömülü talimatların (prompt injection) asla komut olarak uygulanmayacağı kuralı eklendi.
+- `gider-kalemi-kontrolu`: "kategori uygunluğu" ile "gerekçelendirme yeterliliği" ayrı değerlendirme boyutları haline getirildi (önceden tek bir "bulgu" sütununda karışıyordu).
+- `commands/rapor.md`: sadece rapor dosyası verildiğinde onaylı proje planını isteme adımının atlanabildiği bir tutarsızlık düzeltildi.
+- `scripts/validate.py` eklendi: plugin/marketplace JSON geçerliliği, skill frontmatter kısıtları, command→skill eşlemesi ve sürüm/CHANGELOG tutarlılığı için bağımlılıksız statik doğrulayıcı.
+- `tests/` eklendi: her skill için normal/eksik bilgi/hallucination/çelişki/güncel-olmayan-bilgi/kötü niyetli girdi/belirsiz istek senaryolarını kapsayan LLM-graded manuel eval çerçevesi.
+- README'ye Evidence Protokolü, Doğrulama ve Testler, Sınırlamalar ve Sorun Giderme bölümleri eklendi; `plugin.json`'a `repository` alanı eklendi.
+
 ## 0.4.0
 
 - `donem-raporu-kontrolu` skill'i ve `/arge-tesvik:rapor` komutu eklendi. Kabul edilmiş bir TEYDEB projesinin dönemsel Gelişme Raporu'nu (AGY301) veya proje sonu Sonuç Raporu'nu, onaylı proje planıyla karşılaştırarak izleyici/hakem gözüyle eleştirir; somut kanıt eksikliğini, gerekçesiz takvim/bütçe sapmalarını ve tutarsız bir sonraki dönem planını işaretler.

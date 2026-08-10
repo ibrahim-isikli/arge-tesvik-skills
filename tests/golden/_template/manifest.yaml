@@ -1,0 +1,16 @@
+# Şablon — bir golden proje oluştururken bu dosyayı kopyalayıp doldurun.
+# Tam alan açıklamaları için ../SCHEMA.md'ye bakın.
+
+id: "[project-NNN]"
+title: "[Kısa, kurgusal proje adı]"
+description: >
+  [Bu golden projenin ne test ettiğinin 1-2 cümlelik özeti.]
+
+documents:
+  - id: "[belge_kimligi]"
+    file: "documents/[dosya-adi].md"
+    role: "[bu belgenin rolü, ör. onaylı proje planı / bütçe dökümü / gelişme raporu]"
+
+runs:
+  - skill: "[ör. hakem-simulasyonu]"
+    inputs: ["[belge_kimligi]"]
