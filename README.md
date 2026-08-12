@@ -27,7 +27,7 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 - `/arge-tesvik:tutarlilik` → `proje-tutarlilik-kontrolu`
 - `/arge-tesvik:itiraz` → `itiraz-hazirlik`
 
-(Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır; bu eklentinin adı `arge-tesvik` olduğu için tam komut isimleri yukarıdaki gibidir. Kısaca `/degerlendir` ve `/tara` yazmak da, başka bir eklentiyle çakışmadığı sürece çalışır.)
+Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır, bu yüzden tam komut isimleri yukarıdaki gibidir. Başka bir eklentiyle çakışmadığı sürece kısaca `/degerlendir` ya da `/tara` yazmak da çalışır.
 
 ## Kurulum
 
@@ -42,11 +42,11 @@ claude plugin install arge-tesvik@arge-tesvik-skills
 
 Bundan sonra `claude` yazıp yeni bir oturum açtığınızda eklenti hazır olur — ayrıca bir "reload" adımına gerek yoktur, çünkü her yeni `claude` oturumu kurulu plugin'leri zaten yükler. Deneme için: `/arge-tesvik:degerlendir` yazın ya da bir taslak paylaşıp "hakem ne der?" deyin.
 
-Adımların terminalde tam olarak nasıl göründüğü (bu komutları bu depoya karşı gerçekten çalıştırıp çıktısını kaydettim, uydurma metin değil):
+Adımların terminalde tam olarak nasıl göründüğü:
 
 ![Kurulum adımları: claude plugin marketplace add, claude plugin install](./assets/kurulum-demo.gif)
 
-Zaten açık bir Claude Code oturumundaysanız aynı işlemi oturumun kendi komut satırına `/plugin marketplace add ...` ve `/plugin install ...` yazarak da yapabilirsiniz; bu durumda kurulum özeti "Run /reload-plugins to activate." derse `/reload-plugins` çalıştırmanız gerekir (bu ekran etkileşimli bir seçim adımı içerdiği için burada ayrıca göstermedim).
+Zaten açık bir Claude Code oturumundaysanız aynı işlemi oturumun kendi komut satırına `/plugin marketplace add ...` ve `/plugin install ...` yazarak da yapabilirsiniz. Bu durumda kurulum özeti "Run /reload-plugins to activate." derse `/reload-plugins` çalıştırmanız gerekir.
 
 Yerelde geliştirirken/denerken (marketplace/install adımları olmadan, doğrudan klasörden):
 
@@ -58,17 +58,17 @@ claude --plugin-dir /path/to/arge-tesvik-skills
 
 ### hakem-simulasyonu
 
-Kurulumdan sonra herhangi bir slash komutu yazmanıza da gerek yok — bir proje önerisi taslağı paylaşıp "hakem ne der?" demeniz `hakem-simulasyonu` skill'ini tetiklemeye yeter. Aşağıda gerçek bir taslakla yaptığım gerçek bir koşunun çıktısının ilk kısmı var (raporun tamamı üç boyutu, düzeltme önerilerini ve ÜYZ/beyan hatırlatmalarını da içerecek şekilde devam eder — GIF'te yer sınırlı olduğu için "..." ile kestim):
+Kurulumdan sonra herhangi bir slash komutu yazmanıza da gerek yok — bir proje önerisi taslağı paylaşıp "hakem ne der?" demeniz `hakem-simulasyonu` skill'ini tetiklemeye yeter. Aşağıda gerçek bir taslakla alınan çıktının ilk kısmı var; raporun tamamı üç boyutu, düzeltme önerilerini ve ÜYZ/beyan hatırlatmalarını da içerecek şekilde devam eder:
 
 ![Kullanım örneği: hakem-simulasyonu'na taslak paylaşıp kritik alma](./assets/kullanim-demo.gif)
 
 ### cagri-tarama
 
-Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son başvuru tarihi ne zaman?" demeniz yeterli. Aşağıdaki GIF de gerçek bir koşudan alındı — tarihler, durumlar ve kaynaklar gerçek arama sonucundan birebir; sadece dar terminal genişliğine sığması için tablo yerine liste düzeninde gösterdim ve tam tabloyu (1001, 1505, 1707, 1511, 3001 dahil) "..." ile kestim:
+Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son başvuru tarihi ne zaman?" demeniz yeterli. Aşağıdaki GIF'te tam tablo (1001, 1505, 1707, 1511, 3001 dahil) dar terminal genişliğine sığması için liste düzeninde gösterildi:
 
 ![Kullanım örneği: cagri-tarama ile açık TÜBİTAK çağrılarını sorgulama](./assets/cagri-tarama-demo.gif)
 
-**Önemli:** GIF'teki tarihler 6 Ağustos 2026'da yapılan gerçek bir taramanın sonucu — canlı/güncel değil, örnek olsun diye burada donmuş durumda. Skill her çalıştığında yeniden tarama yapar; kendi sorgunuzda güncel tarihleri göreceksiniz.
+**Önemli:** GIF'teki tarihler 6 Ağustos 2026'da yapılan bir taramaya ait, örnek olsun diye burada donmuş durumda — canlı/güncel değil. Skill her çalıştığında yeniden tarama yapar; kendi sorgunuzda güncel tarihleri göreceksiniz.
 
 ## markapatent-mcp bağlantısı
 
