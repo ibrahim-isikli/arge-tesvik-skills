@@ -29,6 +29,22 @@ Slash komutları ilgili skill'i doğrudan tetikler:
 
 Claude Code'da plugin komutları `<plugin-adı>:<komut-adı>` şeklinde adlandırılır, bu yüzden tam komut isimleri yukarıdaki gibidir. Başka bir eklentiyle çakışmadığı sürece kısaca `/degerlendir` ya da `/tara` yazmak da çalışır.
 
+## Gereksinimler
+
+Her skill'in çalışması için sohbette paylaşmanız gereken en az bir girdi vardır; bazı skill'ler ayrıca daha doğru sonuç için `references/` klasörüne eklenmiş resmi bir belgeye ihtiyaç duyar. Bu belgeler zorunlu değildir — eksikse skill veriyi uydurmak yerine ilgili bilgiyi "bilinmiyor" (UNKNOWN) olarak işaretler (bkz. `docs/evidence-protokolu.md`) — ama olmadan sonuç eksik kalır.
+
+| Skill | Sohbette paylaşmanız gereken | `references/` klasöründe önerilen belge |
+|---|---|---|
+| `hakem-simulasyonu` | Proje önerisi taslağı | TEYDEB/ARDEB Uygulama Esasları |
+| `gider-kalemi-kontrolu` | Bütçe/gider kalemi tablosu | Gider Formları Hazırlama Kılavuzu / Bütçe Hazırlama Rehberi |
+| `cagri-tarama` | — (girdi gerekmez, web'den canlı tarar) | — |
+| `donem-raporu-kontrolu` | Rapor taslağı (+ mümkünse onaylı proje planı/AGY101) | AGY301 (Gelişme Raporu) veya Sonuç Raporu şablonu |
+| `proje-tutarlilik-kontrolu` | En az iki proje belgesi (karşılaştırma için) | — |
+| `itiraz-hazirlik` | Mevcut proje metni + hakem raporu | TÜBİMER İtiraz Usul ve Esasları |
+| `patent-on-arastirma` | Fikrin/ürünün kısa açıklaması | — (markapatent-mcp üzerinden TÜRKPATENT'te canlı arar) |
+
+`references/` klasörüne eklenecek belgelerin tam listesi, her birinin ne işe yaradığı ve nereden indirileceği için `references/README.md`'ye bakın. Tüm belgeler TÜBİTAK'ın resmi sitesinden ([tubitak.gov.tr](https://www.tubitak.gov.tr)) indirilir; telif hakkı nedeniyle bu depoda yeniden dağıtılmazlar, bu yüzden ilgili belgeyi güncel haliyle siz eklemelisiniz.
+
 ## Kurulum
 
 Bu depo hem plugin'i (`.claude-plugin/plugin.json`) hem de kendi kendini listeleyen bir marketplace'i (`.claude-plugin/marketplace.json`) içerir, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur.
