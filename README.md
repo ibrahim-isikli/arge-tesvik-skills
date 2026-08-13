@@ -142,3 +142,7 @@ Her skill, TÜBİTAK ÜYZ (üretken yapay zeka) Rehberi (Eylül 2025) kapsamınd
 - **Gizlilik**: Ciro, bütçe detayı, yayınlanmamış teknik bilgi gibi hassas/gizli firma verileri araca girilmemeli; skill'ler kullanıcıyı bu konuda uyarır ve placeholder mantığıyla çalışır.
 - **Beyan zorunluluğu**: Proje önerisi hazırlanırken bir ÜYZ aracından önemli ölçüde faydalanıldıysa, bunun başvuruda beyan edilmesi gerektiğini her skill çıktısının sonunda hatırlatır.
 - **Nihai sorumluluk**: Başvurunun içeriğinden ve doğruluğundan nihai olarak başvuru sahibi sorumludur; hiçbir skill bu sorumluluğu üstlenmez.
+
+## İlgili eklenti
+
+5746 sayılı Kanun kapsamında bir Ar-Ge/Tasarım/Yenilik Merkezi kurmak veya sürdürmek istiyorsanız (TEYDEB/ARDEB proje hibesinden farklı, kurumsal/firma bazlı bir teşvik rejimi), aynı geliştiricinin [arge-merkezi-uygunluk-kontrolu](https://github.com/ibrahim-isikli/arge-merkezi-uygunluk-kontrolu) eklentisine bakın.
