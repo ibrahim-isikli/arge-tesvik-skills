@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""arge-tesvik plugin/skill deterministic static validator.
+"""arge-tesvik-skills marketplace — çoklu-plugin statik doğrulayıcı.
 
 Bağımlılık yok (yalnızca stdlib). Kaynak/mevzuat doğruluğunu kontrol etmez —
-sadece plugin/skill/command dosyalarının yapısal olarak Claude Code'un
-beklediği formata uyup uymadığını denetler. CI'da veya commit öncesi
-`python3 scripts/validate.py` ile çalıştırılabilir.
+sadece marketplace.json'da listelenen her plugin'in skill/command dosyalarının
+yapısal olarak Claude Code'un beklediği formata uyup uymadığını denetler.
+CI'da veya commit öncesi `python3 scripts/validate.py` ile çalıştırılabilir.
 """
 
 from __future__ import annotations
@@ -58,46 +58,49 @@ def parse_frontmatter(text: str, path: Path) -> dict[str, str]:
     return fm
 
 
-def validate_plugin_manifest(data: dict | None) -> str | None:
+def validate_plugin_manifest(data: dict | None, plugin_dir: Path) -> str | None:
     if data is None:
         return None
 
+    rel = plugin_dir.relative_to(ROOT) if plugin_dir != ROOT else Path(".")
+
     for required in ("name", "version", "description"):
         if not data.get(required):
-            error(f"plugin.json: zorunlu alan eksik veya boş: '{required}'")
+            error(f"{rel}/.claude-plugin/plugin.json: zorunlu alan eksik veya boş: '{required}'")
 
     version = data.get("version", "")
     if version and not SEMVER_RE.match(version):
-        error(f"plugin.json: version '{version}' semantic versioning (x.y.z) formatında değil")
+        error(f"{rel}/.claude-plugin/plugin.json: version '{version}' semantic versioning (x.y.z) formatında değil")
 
     if "author" in data:
         if not isinstance(data["author"], dict):
-            error("plugin.json: 'author' bir obje olmalı")
+            error(f"{rel}/.claude-plugin/plugin.json: 'author' bir obje olmalı")
         elif not data["author"].get("name"):
-            error("plugin.json: 'author.name' eksik")
+            error(f"{rel}/.claude-plugin/plugin.json: 'author.name' eksik")
 
     if "keywords" in data and not isinstance(data["keywords"], list):
-        error("plugin.json: 'keywords' bir liste olmalı")
+        error(f"{rel}/.claude-plugin/plugin.json: 'keywords' bir liste olmalı")
 
     if "repository" not in data:
-        warn("plugin.json: 'repository' alanı yok (opsiyonel ama önerilir)")
+        warn(f"{rel}/.claude-plugin/plugin.json: 'repository' alanı yok (opsiyonel ama önerilir)")
 
     if "mcpServers" in data:
         if not isinstance(data["mcpServers"], dict):
-            error("plugin.json: 'mcpServers' bir obje olmalı")
+            error(f"{rel}/.claude-plugin/plugin.json: 'mcpServers' bir obje olmalı")
         else:
             for server_name, cfg in data["mcpServers"].items():
                 if not isinstance(cfg, dict) or "type" not in cfg:
-                    error(f"plugin.json: mcpServers.{server_name} 'type' alanı eksik")
+                    error(f"{rel}/.claude-plugin/plugin.json: mcpServers.{server_name} 'type' alanı eksik")
 
     return data.get("name")
 
 
-def validate_marketplace(plugin_name: str | None) -> None:
+def load_marketplace() -> list[dict]:
+    """marketplace.json'ı doğrular ve içindeki plugin girdilerini döner."""
     path = ROOT / ".claude-plugin" / "marketplace.json"
     data = load_json(path)
     if data is None:
-        return
+        return []
 
     for required in ("name", "owner", "plugins"):
         if required not in data:
@@ -106,20 +109,24 @@ def validate_marketplace(plugin_name: str | None) -> None:
     plugins = data.get("plugins", [])
     if not isinstance(plugins, list) or not plugins:
         error("marketplace.json: 'plugins' boş olmayan bir liste olmalı")
-        return
+        return []
 
-    names = [p.get("name") for p in plugins]
-    if plugin_name and plugin_name not in names:
-        error(
-            f"marketplace.json: plugin.json'daki isim ('{plugin_name}') "
-            f"marketplace.json'daki plugins listesinde yok: {names}"
-        )
+    for p in plugins:
+        if not p.get("name") or not p.get("source"):
+            error(f"marketplace.json: her plugin girdisi 'name' ve 'source' içermeli — hatalı girdi: {p}")
+
+    return plugins
 
 
-def validate_skills() -> set[str]:
-    skills_dir = ROOT / "skills"
+def resolve_source(source: str) -> Path:
+    return (ROOT / source).resolve()
+
+
+def validate_skills(plugin_dir: Path) -> set[str]:
+    skills_dir = plugin_dir / "skills"
+    rel_plugin = plugin_dir.relative_to(ROOT) if plugin_dir != ROOT else Path(".")
     if not skills_dir.is_dir():
-        error("skills/ dizini bulunamadı")
+        error(f"{rel_plugin}/skills/ dizini bulunamadı")
         return set()
 
     skill_names: set[str] = set()
@@ -128,7 +135,7 @@ def validate_skills() -> set[str]:
             continue
         skill_md = skill_dir / "SKILL.md"
         if not skill_md.exists():
-            error(f"skills/{skill_dir.name}/: SKILL.md eksik")
+            error(f"{rel_plugin}/skills/{skill_dir.name}/: SKILL.md eksik")
             continue
 
         text = skill_md.read_text(encoding="utf-8")
@@ -169,10 +176,11 @@ def validate_skills() -> set[str]:
     return skill_names
 
 
-def validate_commands(skill_names: set[str]) -> None:
-    commands_dir = ROOT / "commands"
+def validate_commands(plugin_dir: Path, skill_names: set[str]) -> None:
+    commands_dir = plugin_dir / "commands"
+    rel_plugin = plugin_dir.relative_to(ROOT) if plugin_dir != ROOT else Path(".")
     if not commands_dir.is_dir():
-        warn("commands/ dizini bulunamadı")
+        warn(f"{rel_plugin}/commands/ dizini bulunamadı")
         return
 
     for cmd_path in sorted(commands_dir.glob("*.md")):
@@ -191,35 +199,56 @@ def validate_commands(skill_names: set[str]) -> None:
             )
 
 
-def validate_version_consistency(plugin_name_and_version: tuple[str | None, str | None]) -> None:
-    _, version = plugin_name_and_version
-    changelog = ROOT / "CHANGELOG.md"
+def validate_version_consistency(plugin_dir: Path, version: str | None) -> None:
+    rel_plugin = plugin_dir.relative_to(ROOT) if plugin_dir != ROOT else Path(".")
+    changelog = plugin_dir / "CHANGELOG.md"
     if not version or not changelog.exists():
         return
     text = changelog.read_text(encoding="utf-8")
     m = re.search(r"^##\s+(\d+\.\d+\.\d+)", text, re.M)
     if not m:
-        warn("CHANGELOG.md: semver formatında bir '## x.y.z' başlığı bulunamadı")
+        warn(f"{rel_plugin}/CHANGELOG.md: semver formatında bir '## x.y.z' başlığı bulunamadı")
         return
     top_version = m.group(1)
     if top_version != version:
         error(
-            f"CHANGELOG.md'deki en üst sürüm ('{top_version}') "
+            f"{rel_plugin}/CHANGELOG.md'deki en üst sürüm ('{top_version}') "
             f"plugin.json'daki version ('{version}') ile eşleşmiyor"
         )
 
 
 def main() -> int:
-    plugin_path = ROOT / ".claude-plugin" / "plugin.json"
-    plugin_data = load_json(plugin_path)
-    plugin_name = (plugin_data or {}).get("name")
-    plugin_version = (plugin_data or {}).get("version")
+    plugins = load_marketplace()
 
-    validate_plugin_manifest(plugin_data)
-    validate_marketplace(plugin_name)
-    skill_names = validate_skills()
-    validate_commands(skill_names)
-    validate_version_consistency((plugin_name, plugin_version))
+    for entry in plugins:
+        name = entry.get("name")
+        source = entry.get("source")
+        if not source:
+            continue
+        plugin_dir = resolve_source(source)
+        rel_plugin = plugin_dir.relative_to(ROOT) if plugin_dir != ROOT else Path(".")
+
+        if not plugin_dir.is_dir():
+            error(f"marketplace.json: plugin '{name}' için source dizini bulunamadı: {rel_plugin}")
+            continue
+
+        plugin_manifest_path = plugin_dir / ".claude-plugin" / "plugin.json"
+        plugin_data = load_json(plugin_manifest_path)
+        plugin_name = validate_plugin_manifest(plugin_data, plugin_dir)
+        plugin_version = (plugin_data or {}).get("version")
+
+        if plugin_name and name and plugin_name != name:
+            error(
+                f"{rel_plugin}/.claude-plugin/plugin.json: name ('{plugin_name}') "
+                f"marketplace.json'daki plugin adıyla ('{name}') eşleşmiyor"
+            )
+
+        skill_names = validate_skills(plugin_dir)
+        validate_commands(plugin_dir, skill_names)
+        validate_version_consistency(plugin_dir, plugin_version)
+
+    if not plugins:
+        pass  # load_marketplace() zaten uygun hatayı ekledi
 
     if WARNINGS:
         print(f"UYARI ({len(WARNINGS)}):")
@@ -232,7 +261,7 @@ def main() -> int:
         print(f"\nValidasyon BAŞARISIZ: {len(ERRORS)} hata, {len(WARNINGS)} uyarı.")
         return 1
 
-    print(f"Validasyon BAŞARILI ({len(WARNINGS)} uyarı).")
+    print(f"Validasyon BAŞARILI ({len(plugins)} plugin, {len(WARNINGS)} uyarı).")
     return 0
 
 
