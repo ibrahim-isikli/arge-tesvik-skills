@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "akademik-arastirma",
+  "displayName": "Türkçe Akademik Araştırma Asistanı",
+  "version": "0.1.0",
+  "description": "Türkçe akademik araştırma sürecini (literatür taraması, makale/tez yapısı planlama, hakem simülasyonu, atıf/bütünlük kontrolü) destekleyen bir Claude Code eklentisi. İçerik üretmez/yazmaz — eleştirir, sorgular ve kontrol eder; nihai yazım ve bilimsel sorumluluk her zaman araştırmacıya aittir.",
+  "author": {
+    "name": "İbrahim Işıklı"
+  },
+  "repository": "https://github.com/ibrahim-isikli/arge-tesvik-skills",
+  "license": "MIT",
+  "keywords": [
+    "akademik-arastirma",
+    "literatur-taramasi",
+    "makale-yazimi",
+    "tez-yazimi",
+    "hakem-simulasyonu",
+    "atif-kontrolu",
+    "arastirma-butunlugu",
+    "yok",
+    "tr-dizin",
+    "dergipark"
+  ]
+}

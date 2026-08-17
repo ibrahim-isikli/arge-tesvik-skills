@@ -1,6 +1,6 @@
 {
   "name": "arge-tesvik-skills",
-  "description": "Türkiye'deki Ar-Ge teşvik süreçleri için hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması, dönem/gelişme raporu kontrolü, belgeler arası tutarlılık kontrolü ve itiraz hazırlığı skill'lerini sağlayan marketplace.",
+  "description": "Türkiye'deki Ar-Ge teşvik süreçleri ve Türkçe akademik araştırma süreçleri için Claude Code eklentileri sağlayan marketplace: TÜBİTAK hakem simülasyonu/bütçe/çağrı/patent/rapor/itiraz araçları (arge-tesvik) ve literatür taraması/makale yazım rehberliği/akademik hakem simülasyonu/atıf bütünlük kontrolü araçları (akademik-arastirma).",
   "owner": {
     "name": "İbrahim Işıklı"
   },
@@ -9,6 +9,11 @@
       "name": "arge-tesvik",
       "source": "./",
       "description": "TÜBİTAK TEYDEB/ARDEB hakem simülasyonu, bütçe/gider kalemi kontrolü, çağrı tarama, patent ön araştırması, dönem/gelişme raporu kontrolü, belgeler arası tutarlılık kontrolü ve ret sonrası itiraz hazırlığı. TÜBİTAK ile ilişkili değildir."
+    },
+    {
+      "name": "akademik-arastirma",
+      "source": "./akademik-arastirma",
+      "description": "Türkçe akademik araştırma için literatür taraması, makale/tez yapısı planlama (Sokratik), dergi hakemi/jüri gözüyle hakem simülasyonu ve atıf/kaynak bütünlük kontrolü. İçerik yazmaz — planlar, eleştirir, kontrol eder."
     }
   ]
 }

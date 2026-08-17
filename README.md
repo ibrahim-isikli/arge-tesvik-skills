@@ -1,8 +1,11 @@
 # arge-tesvik-skills
 
-Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten bir **Ar-Ge Teşvik & Proje Uzmanı**'nın işini destekleyen bir Claude Code eklentisi (`arge-tesvik`).
+Bu depo, self-listing bir marketplace üzerinden iki bağımsız Claude Code eklentisi sağlar:
 
-Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https://www.tubitak.gov.tr)
+- **`arge-tesvik`** — Türkiye'deki Ar-Ge teşvik süreçlerini (TÜBİTAK TEYDEB/ARDEB, patent, 5746 mevzuatı) yürüten bir **Ar-Ge Teşvik & Proje Uzmanı**'nın işini destekler. Bu araç TÜBİTAK ile ilişkili değildir. Resmi kaynak: [tubitak.gov.tr](https://www.tubitak.gov.tr)
+- **`akademik-arastirma`** — Türkçe akademik araştırma sürecini (literatür taraması, makale/tez yapısı planlama, hakem simülasyonu, atıf/bütünlük kontrolü) destekler. Detaylar ve kurulum için [`akademik-arastirma/README.md`](./akademik-arastirma/README.md)'ye bakın.
+
+Bu bölümün geri kalanı `arge-tesvik` eklentisini anlatır.
 
 ## Ne işe yarar
 
