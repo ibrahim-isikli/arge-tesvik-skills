@@ -50,13 +50,19 @@ Her skill'in çalışması için sohbette paylaşmanız gereken en az bir girdi 
 
 ## Kurulum
 
-Bu depo hem plugin'i (`.claude-plugin/plugin.json`) hem de kendi kendini listeleyen bir marketplace'i (`.claude-plugin/marketplace.json`) içerir, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur.
+Bu depo kendi kendini listeleyen bir marketplace (`.claude-plugin/marketplace.json`) içerir ve bu marketplace üzerinden `arge-tesvik` ve `akademik-arastirma` olmak üzere iki bağımsız plugin sunar, bu yüzden ek bir marketplace deposuna ihtiyaç yoktur. Marketplace'i bir kere ekledikten sonra istediğiniz plugin'i (veya ikisini birden) kurabilirsiniz.
 
-Claude Code kurulu olan normal bir terminalde şu iki komutu çalıştırın:
+Claude Code kurulu olan normal bir terminalde şu komutları çalıştırın:
 
 ```
 claude plugin marketplace add ibrahim-isikli/arge-tesvik-skills
 claude plugin install arge-tesvik@arge-tesvik-skills
+```
+
+`akademik-arastirma` eklentisini kurmak isterseniz (kurulum ve kullanım detayları için [`akademik-arastirma/README.md`](./akademik-arastirma/README.md)):
+
+```
+claude plugin install akademik-arastirma@arge-tesvik-skills
 ```
 
 Bundan sonra `claude` yazıp yeni bir oturum açtığınızda eklenti hazır olur — ayrıca bir "reload" adımına gerek yoktur, çünkü her yeni `claude` oturumu kurulu plugin'leri zaten yükler. Deneme için: `/arge-tesvik:degerlendir` yazın ya da bir taslak paylaşıp "hakem ne der?" deyin.
