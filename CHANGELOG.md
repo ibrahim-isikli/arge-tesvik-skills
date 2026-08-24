@@ -7,6 +7,12 @@ Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürüml
 - **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
 - **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
 
+## 1.0.0
+
+- **BREAKING (davranış tersine çevrildi):** `patent-on-arastirma`'nın varsayılan/birincil yöntemi artık `markapatent-mcp` (TÜRKPATENT) değil, ücretsiz genel patent veritabanı taraması (`WebSearch`/`WebFetch` ile Google Patents/Espacenet) — hiçbir hesap/API key gerektirmez. `markapatent-mcp` artık yalnızca kullanıcı açıkça TÜRKPATENT'e özel doğrulama veya marka/tasarım araması istediğinde devreye giriyor (marka/tasarım zaten sadece bu yolla taranabiliyordu). Gerekçe: `markapatent-mcp` üçüncü taraf bir servise (Capsolver, ücretli, minimum $10 yükleme) bağımlı ve bu turda gerçek kullanımda bakiyesi tükenmiş durumda bulundu — varsayılan akışı buna bağımlı tutmak, plugin'in temel kullanım senaryosunu (patent ön taraması) parayla/üçüncü tarafla şartlandırıyordu. `Kaynak` kolonu artık `Genel patent veritabanı (Google Patents/Espacenet)` / `TÜRKPATENT (markapatent-mcp)` değerlerini ayırt ediyor.
+- `docs/evidence-protokolu.md` kaynak hiyerarşisiyle uyumlu olacak şekilde README, gereksinimler tablosu ve "markapatent-mcp bağlantısı" bölümü (artık "opsiyonel" olarak) güncellendi; kendi Capsolver key'inizle self-host etme seçeneği belgelendi.
+- `tests/patent-on-arastirma/eval-scenarios.md` yeni varsayılan davranışı (markapatent-mcp'nin opt-in olması) yansıtacak şekilde güncellendi.
+
 ## 0.8.0
 
 - `patent-on-arastirma`: markapatent-mcp (TÜRKPATENT) UNAVAILABLE/DEGRADED olduğunda artık sessizce durmuyor — `WebSearch`/`WebFetch` bağlıysa Google Patents/Espacenet üzerinde ikincil bir tarama deniyor, bulguları `Kaynak: TÜRKPATENT` / `Kaynak: İkincil` diye ayrıştırılmış yeni bir kolonla raporluyor. İkincil kaynağın TÜRKPATENT sonucuymuş gibi sunulmasını yasaklayan yeni bir "Kesinlikle yapma" maddesi eklendi. Bu değişiklik, bu turda gerçek bir runtime testinde markapatent-mcp'nin arkasındaki captcha-çözücü servisin (Capsolver) bakiyesi tükendiğinde tetiklendi — Google Patents/Justia gibi hedef sitelerin patent detay sayfalarının otomatik erişimi (403/503) sıkça engellediği de aynı testte doğrulandı; bu durumda ilgili alan (rüçhan tarihi/IPC-CPC/hukuki durum) tahmin edilmeden "bulunamadı" olarak işaretleniyor.
