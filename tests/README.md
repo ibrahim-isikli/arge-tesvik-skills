@@ -29,6 +29,7 @@ Her skill dosyası aynı 7 kategoriyi kapsar:
 
 | Skill | Dosya |
 |---|---|
+| `fikir-uretimi` | [tests/fikir-uretimi/eval-scenarios.md](fikir-uretimi/eval-scenarios.md) |
 | `hakem-simulasyonu` | [tests/hakem-simulasyonu/eval-scenarios.md](hakem-simulasyonu/eval-scenarios.md) |
 | `gider-kalemi-kontrolu` | [tests/gider-kalemi-kontrolu/eval-scenarios.md](gider-kalemi-kontrolu/eval-scenarios.md) |
 | `cagri-tarama` | [tests/cagri-tarama/eval-scenarios.md](cagri-tarama/eval-scenarios.md) |

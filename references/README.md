@@ -22,6 +22,10 @@ Bu klasör boş gelir — TÜBİTAK'ın telif hakkı olan resmi belgelerini içe
 | TÜBİMER İtiraz Usul ve Esasları | tubitak.gov.tr → TÜBİMER | `itiraz-hazirlik` skill'inin itiraz süresi, kabul edilen gerekçe kategorileri ve idari ücret gibi bilgileri hafızadan uydurmadan uygulaması için |
 | ÜYZ (üretken yapay zeka) Rehberi (Eylül 2025) | tubitak.gov.tr | Bu eklentinin tüm skill'lerinin uyduğu gizlilik ve beyan kurallarının kaynağı |
 
+## Opsiyonel: `fikir-uretimi` için firma bağlam notu
+
+`fikir-uretimi` skill'i, her seferinde ürün/teknoloji alanınızı yeniden sormaması için isteğe bağlı bir bağlam dosyası okuyabilir (örn. `references/firma-baglami.md`). Bu klasördeki her şey gibi bu dosya da `.gitignore` sayesinde asla bu (herkese açık) depoya commit edilmez — yalnızca sizin makinenizde/oturumunuzda kalır. Bu dosyaya sadece genel ürün/teknoloji alanınızı (örn. "akıllı ev otomasyon ürünleri") yazın; ciro, bütçe, yayınlanmamış teknik detay gibi hassas bilgileri yazmayın (bkz. ÜYZ gizlilik uyarısı).
+
 ## Nasıl kullanılır
 
 Dosyaları indirdiğiniz haliyle (PDF/DOCX) bu klasöre koymanız yeterli — skill'ler bir proje önerisini değerlendirirken veya bir çağrıyı tararken bu klasördeki güncel belgelere referans verebilir. Dosya adlarını değiştirmeniz gerekmiyor, sadece anlamlı isimler kullanmanız (örn. `teydeb-uygulama-esaslari-2025.pdf`) okunabilirliği artırır.
