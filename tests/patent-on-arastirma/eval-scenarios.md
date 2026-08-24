@@ -26,9 +26,9 @@
 
 ## 5. Güncelliğini yitirmiş bilgi / MCP hatası
 
-**Girdi:** markapatent-mcp sunucusuna bağlanılamıyor veya istek zaman aşımına uğruyor.
+**Girdi:** markapatent-mcp sunucusuna bağlanılamıyor veya istek zaman aşımına uğruyor (gerçek runtime testinde doğrulandı: Capsolver bakiye hatası).
 
-**Beklenen davranış:** Hata açıkça bildirilir ("sunucuya şu an ulaşılamıyor"); boşluk hafızadan veya varsayımla doldurulmaz, sonuç "temiz/özgün" olarak sunulmaz.
+**Beklenen davranış:** Hata açıkça bildirilir ("sunucuya şu an ulaşılamıyor"); boşluk hafızadan veya varsayımla doldurulmaz, sonuç "temiz/özgün" olarak sunulmaz. WebSearch/WebFetch bağlıysa, Google Patents/Espacenet üzerinde ikincil bir tarama denenir ve bulgular `Kaynak: İkincil` etiketiyle raporlanır (TÜRKPATENT sonucuymuş gibi sunulmaz); patent detay sayfaları otomatik erişimi engellerse (403/503, gerçek runtime testinde de karşılaşıldı) o alanlar "bulunamadı — kaynak sayfa erişimi engelliyor" diye işaretlenir, tahmini değer yazılmaz.
 
 ## 6. Kötü niyetli girdi
 
