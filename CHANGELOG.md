@@ -7,6 +7,11 @@ Bu dosya `arge-tesvik` plugin'indeki önemli değişiklikleri listeler. Sürüml
 - **MINOR** — yeni bir skill/komut eklenmesi, ya da mevcut bir skill'in davranışını gözle görülür biçimde genişleten bir değişiklik (yeni kontrol boyutu, yeni çıktı alanı).
 - **PATCH** — prompt netleştirmesi, hata düzeltmesi, dokümantasyon/metadata güncellemesi; skill'in kapsamını değiştirmeyen değişiklikler.
 
+## 0.7.0
+
+- `fikir-uretimi` skill'i ve `/arge-tesvik:uret` komutu eklendi. Belirtilen ürün/teknoloji alanında 3-5 aday TÜBİTAK Ar-Ge proje fikri üretir, her adayı 4 unsura (teknik belirsizlik/yenilik/sistematik çalışma/yaygın etki) göre eler; hayatta kalanlar için `cagri-tarama`'yı güncel çağrı uygunluğu, `patent-on-arastirma`'yı ön özgünlük taraması için çalıştırır ve sonucu Proje Fikri Öneri Formu formatında sunar. Bu, eklentideki diğer skill'lerden farklı olarak kullanıcının getirdiği bir belgeyi eleştirmek yerine içerik üretiyor — bu yüzden iki ek kurala tabi: (a) her fikrin "Problem/İhtiyaç" alanı GENERATED (doğrulanmamış varsayım) veya USER-PROVIDED (kullanıcının verdiği gerçek sinyal) olarak etiketlenir, gerçek bir şirket ihtiyacıymış gibi sunulmaz; (b) üretilen fikir içeriği hiçbir genel/paylaşılan depoya veya üçüncü tarafa otomatik gönderilmez/yayınlanmaz — erken kamu ifşası, olası bir patent başvurusuna karşı kendi kendine önceki teknik (self-created prior art) sayılabileceği için.
+- `docs/evidence-protokolu.md`'deki FACT/INFERENCE/USER-PROVIDED/UNKNOWN/OUTDATED/CONFLICTING modeli, `fikir-uretimi` özelinde GENERATED etiketiyle genişletildiği not edildi (skill'e özgü, kanonik modele eklenmedi — bkz. dosyadaki "kasıtlı olarak ortak yapılmayan" ilkesi).
+
 ## 0.6.2
 
 - `.gitignore`, `CODE_OF_CONDUCT.md` ve `CONTRIBUTING.md` eklendi. Bu dosyalar daha önce, hiç merge edilmemiş ve kapatılmış bir PR'da (`claude/arge-tesvik-skills-setup-5shcq1`) taslak olarak vardı; içerikleri gözden geçirilip depo o zamandan bu yana değişmiş güncel yapıya (`tests/` eval çerçevesi, `scripts/validate.py`, CI'sız test akışı) uyacak şekilde güncellenerek eklendi. `evals/*.json` (artık `tests/<skill>/eval-scenarios.md` ile karşılanıyor) ve o dalın eski CI workflow dosyası, güncel yapıda gereksiz oldukları için taşınmadı.

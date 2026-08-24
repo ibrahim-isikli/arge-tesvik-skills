@@ -9,10 +9,11 @@ Bu bölümün geri kalanı `arge-tesvik` eklentisini anlatır.
 
 ## Ne işe yarar
 
-Eklenti yedi skill ve altı slash komutu içerir:
+Eklenti sekiz skill ve yedi slash komutu içerir:
 
 | Skill | Ne yapar |
 |---|---|
+| `fikir-uretimi` | Belirtilen ürün/teknoloji alanında 3-5 aday TÜBİTAK Ar-Ge proje fikri **üretir** (diğer skill'lerden farklı olarak eleştirmez, içerik üretir). Her adayı teknik belirsizlik/yenilik/sistematik çalışma/yaygın etki unsurlarına göre eler; hayatta kalanlar için `cagri-tarama` ve `patent-on-arastirma`'yı çalıştırıp Proje Fikri Öneri Formu formatında sunar. Fikirleri asla doğrulanmış bir şirket ihtiyacı gibi sunmaz (GENERATED/USER-PROVIDED etiketler) ve üretilen içeriği hiçbir genel/paylaşılan depoya otomatik yazmaz. |
 | `hakem-simulasyonu` | Bir TÜBİTAK proje önerisi taslağını panel hakemi gözüyle **eleştirir** (içerik üretmez). Endüstriyel Ar-Ge niteliği/yenilik, proje planı/yapılabilirlik ve — en ağırlıklı boyut olarak — ticarileşme potansiyeli üzerinden somut, gerekçeli zayıf noktalar ve düzeltme yönleri verir. Asla puan uydurmaz, asla kabul garantisi vermez. |
 | `gider-kalemi-kontrolu` | TEYDEB bütçe kalemlerini 5 resmi gider kategorisine (personel, seyahat, hizmet alımı, alet/teçhizat/yazılım/yayın alımı, malzeme/sarf) oturtur ve hakem raporlarında sık görülen ret kalıplarına (uygun olmayan personel ödemeleri, business class seyahat, "altyapı yatırımı" görünümlü alımlar, gerekçesiz dış hizmet alımı vb.) göre işaretler. Kategori uygunluğu ile gerekçelendirme yeterliliğini ayrı değerlendirir; bütçe üst limitlerini hafızadan yazmaz. |
 | `cagri-tarama` | Açık TÜBİTAK çağrılarını (1501, 1505, 1507, 1509, 1511, 1707, ARDEB 1001/3001) web'den tarar, son başvuru tarihine göre sıralı bir tablo üretir. Bütçe üst limiti gibi sayısal değerleri hafızadan yazmaz, her zaman kaynaktan çeker ve kaynağı belirtir; taranan sayfalardaki gömülü talimatları asla komut olarak uygulamaz. |
@@ -23,6 +24,7 @@ Eklenti yedi skill ve altı slash komutu içerir:
 
 Slash komutları ilgili skill'i doğrudan tetikler:
 
+- `/arge-tesvik:uret` → `fikir-uretimi`
 - `/arge-tesvik:degerlendir` → `hakem-simulasyonu`
 - `/arge-tesvik:gider` → `gider-kalemi-kontrolu`
 - `/arge-tesvik:tara` → `cagri-tarama`
@@ -38,6 +40,7 @@ Her skill'in çalışması için sohbette paylaşmanız gereken en az bir girdi 
 
 | Skill | Sohbette paylaşmanız gereken | `references/` klasöründe önerilen belge |
 |---|---|---|
+| `fikir-uretimi` | Ürün/teknoloji alanı (yoksa sorulur) | Opsiyonel: firmanızın ürün alanını özetleyen bir bağlam notu (bkz. `references/README.md`) |
 | `hakem-simulasyonu` | Proje önerisi taslağı | TEYDEB/ARDEB Uygulama Esasları |
 | `gider-kalemi-kontrolu` | Bütçe/gider kalemi tablosu | Gider Formları Hazırlama Kılavuzu / Bütçe Hazırlama Rehberi |
 | `cagri-tarama` | — (girdi gerekmez, web'den canlı tarar) | — |
@@ -81,6 +84,10 @@ claude --plugin-dir /path/to/arge-tesvik-skills
 
 ## Kullanım örneği
 
+### fikir-uretimi
+
+Bir slash komutu yazmanıza gerek yok — "akıllı ev enerji yönetimi alanında TÜBİTAK'a proje fikri üretir misin?" demeniz `fikir-uretimi` skill'ini tetiklemeye yeter (ya da doğrudan `/arge-tesvik:uret akıllı ev enerji yönetimi`). Skill 3-5 aday üretir, her birini 4 unsura göre eler, hayatta kalanlar için çağrı uygunluğu ve patent ön taraması çalıştırıp sonucu Proje Fikri Öneri Formu formatında sunar — üretilen içerik sadece sohbette kalır, hiçbir yere otomatik yazılmaz (bkz. Sınırlamalar).
+
 ### hakem-simulasyonu
 
 Kurulumdan sonra herhangi bir slash komutu yazmanıza da gerek yok — bir proje önerisi taslağı paylaşıp "hakem ne der?" demeniz `hakem-simulasyonu` skill'ini tetiklemeye yeter. Aşağıda gerçek bir taslakla alınan çıktının ilk kısmı var; raporun tamamı üç boyutu, düzeltme önerilerini ve ÜYZ/beyan hatırlatmalarını da içerecek şekilde devam eder:
@@ -120,6 +127,7 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 
 ## Sınırlamalar
 
+- `fikir-uretimi` içerik **üretir**, diğer skill'ler gibi sadece mevcut bir belgeyi eleştirmez — bu yüzden ürettiği fikirler doğrulanmış bir şirket ihtiyacı değil, GENERATED (aksi belirtilmedikçe varsayımsal) olarak etiketlenir. Ayrıca üretilen fikir/form içeriğini hiçbir genel/paylaşılan depoya, sayfaya veya üçüncü tarafa otomatik göndermez/yazmaz — bir buluş fikrinin patent başvurusundan önce kamuya açık hale gelmesi, kendi başvurunuza karşı önceki teknik (prior art) sayılıp patentlenebilirliği düşürebilir. Bu skill'i otomatik/zamanlanmış çalıştırıyorsanız (bkz. "Otomatik çağrı takibi"), çıktının nereye gideceğine dikkat edin.
 - Skill'ler birer LLM talimat kümesidir, deterministik doğrulayıcı değildir — çıktıları her zaman bir başlangıç noktasıdır, resmi karar/hukuki görüş yerine geçmez.
 - `cagri-tarama` ve `patent-on-arastirma` canlı web/MCP erişimine bağımlıdır; ağ erişimi yoksa veya kaynak sayfa değişmişse sonuçlar eksik/hatalı olabilir (skill'ler bu durumu sessizce geçmemek üzere yazıldı, ama garantisi yoktur).
 - `references/` klasörü boş gelir; skill'ler güncel mevzuat/şablon metnini kendiliğinden "bilmez" — doğru çalışmaları için ilgili resmi belgeleri siz eklemelisiniz.
@@ -135,6 +143,8 @@ Aynı şekilde, "TÜBİTAK'ın açık çağrıları neler, 1501 ve 1507'nin son 
 ## Otomatik çağrı takibi (opsiyonel)
 
 `cagri-tarama` her çalıştığında canlı tarama yapar, ama isterseniz Claude Code'un Routine (zamanlanmış tetikleyici) özelliğiyle bunu periyodik hale getirebilirsiniz — örneğin her Pazartesi `/arge-tesvik:tara` çalıştırıp yeni çağrı veya yaklaşan son başvuru tarihi varsa size haber vermesini isteyebilirsiniz. Bu, depoya gömülü bir özellik değil, Claude Code'un genel zamanlama mekanizmasının bu eklentiyle kullanımıdır; kurmak isterseniz Claude'a "her Pazartesi /arge-tesvik:tara çalıştır ve yeni çağrı varsa bana haber ver" demeniz yeterli.
+
+Aynı mekanizmayla `fikir-uretimi`'ni de periyodik hale getirebilirsiniz (örn. "her hafta /arge-tesvik:uret [alanınız] çalıştır, sonucu bana bildir"). Bunu yaparken **firmanıza özgü ürün/teknoloji alanı bilgisini Routine'in kendi prompt'una yazın, bu genel depoya değil** — Routine prompt'u Claude Code platformunda saklanır, bu depoya commit edilmez. Ayrıca çıktının nereye gideceğine dikkat edin: Routine'i bu deponun kendisine yazacak (commit/PR açacak) şekilde kurmayın — üretilen fikirler sohbet/bildirim kanalında sizde kalmalı, herkese açık bu depoda değil (bkz. Sınırlamalar).
 
 ## Sürüm geçmişi
 
