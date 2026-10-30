@@ -21,6 +21,7 @@ sadece yapısal bir kontroldür, semantik doğrulama yerine geçmez.
 
 from __future__ import annotations
 
+import re
 import sys
 
 REQUIRED_HEADERS = [
@@ -36,36 +37,68 @@ RISK_TOKENS = ["Düşük", "Orta", "Yüksek"]  # "Çok Yüksek" "Yüksek" içeri
 
 
 def split_row(line: str) -> list[str]:
-    cells = line.strip()
-    if cells.startswith("|"):
-        cells = cells[1:]
-    if cells.endswith("|"):
-        cells = cells[:-1]
-    return [c.strip() for c in cells.split("|")]
+    """Bir markdown tablo satırını hücrelere ayırır.
+
+    Standart markdown tablo kaçışını destekler: bir hücre içinde geçen
+    literal '|' karakteri '\\|' olarak yazılabilir ve kolon ayracı
+    sayılmaz. Bunu desteklemeyen naif bir split('|'), içinde '|' geçen
+    herhangi bir gider açıklamasını (ör. bir ürün kodu) yanlışlıkla fazla
+    kolona böler ve sahte bir "kolon sayısı yanlış" hatasına yol açardı.
+    """
+    stripped = line.strip()
+    # Satır sınırındaki '|' karakterleri her zaman ayraçtır (kaçışlı olsa
+    # bile) çünkü tablo satırı tanımı gereği bunlarla başlar/biter.
+    parts = re.split(r"(?<!\\)\|", stripped)
+    if parts and parts[0] == "":
+        parts = parts[1:]
+    if parts and parts[-1] == "":
+        parts = parts[:-1]
+    return [c.strip().replace("\\|", "|") for c in parts]
 
 
 def is_separator_row(cells: list[str]) -> bool:
     return all(set(c) <= {"-", ":"} and c != "" for c in cells)
 
 
-def find_main_table(lines: list[str]) -> tuple[int, list[str], list[list[str]]] | None:
-    """İlk '| ... |' başlık satırını ve onu izleyen ayraç satırını bulur."""
-    for i in range(len(lines) - 1):
+def find_all_tables(lines: list[str]) -> list[tuple[int, list[str], list[list[str]]]]:
+    """Dosyadaki tüm '| ... |' başlık + ayraç satırı ikililerini (tabloları) bulur."""
+    tables: list[tuple[int, list[str], list[list[str]]]] = []
+    i = 0
+    while i < len(lines) - 1:
         header_line = lines[i].strip()
         sep_line = lines[i + 1].strip()
         if not header_line.startswith("|") or not sep_line.startswith("|"):
+            i += 1
             continue
         header_cells = split_row(header_line)
         sep_cells = split_row(sep_line)
         if len(header_cells) < 2 or not is_separator_row(sep_cells):
+            i += 1
             continue
         rows: list[list[str]] = []
         j = i + 2
         while j < len(lines) and lines[j].strip().startswith("|"):
             rows.append(split_row(lines[j]))
             j += 1
-        return i, header_cells, rows
-    return None
+        tables.append((i, header_cells, rows))
+        i = j
+    return tables
+
+
+def find_main_table(lines: list[str]) -> tuple[int, list[str], list[list[str]]] | None:
+    """Ana tabloyu seçer: dosyada birden fazla tablo varsa (ör. istenmeyen bir
+    özet tablosu da yazılmışsa) başlıkları REQUIRED_HEADERS ile birebir
+    eşleşeni tercih eder, aksi halde dosyadaki ilk tabloyu döner — bu, yanlış
+    bir tabloyu doğrulayıp kafa karıştırıcı bir hata vermek yerine, dosyada
+    gerçekten tek tablo olsun diye konan kısıtın ihlalini de fark edilir kılar.
+    """
+    tables = find_all_tables(lines)
+    if not tables:
+        return None
+    for t in tables:
+        if t[1] == REQUIRED_HEADERS:
+            return t
+    return tables[0]
 
 
 def main() -> int:
@@ -83,6 +116,7 @@ def main() -> int:
         return 2
 
     lines = text.splitlines()
+    all_tables = find_all_tables(lines)
     found = find_main_table(lines)
     errors: list[str] = []
 
@@ -91,6 +125,13 @@ def main() -> int:
         print("Beklenen başlık satırı:")
         print("| " + " | ".join(REQUIRED_HEADERS) + " |")
         return 1
+
+    if len(all_tables) > 1:
+        print(
+            f"UYARI: dosyada {len(all_tables)} ayrı tablo bulundu, sadece tek bir ana tablo "
+            "olmalıydı (SKILL.md adım 8a). Başlığı REQUIRED_HEADERS ile eşleşen tablo seçilip "
+            "doğrulandı, ama dosyadaki fazla içeriği kaldırın.\n"
+        )
 
     _, header_cells, rows = found
 
