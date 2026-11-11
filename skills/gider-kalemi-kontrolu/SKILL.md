@@ -45,6 +45,7 @@ Her kalemi ilgili kategoriye oturttuktan sonra, aşağıdaki kalıplardan herhan
    b. Bash ile şunu çalıştır: `python3 scripts/check_table.py /tmp/gider-tablo-kontrol.md` (yol bu skill'in kendi klasörüne göredir).
    c. Çıktı "BAŞARISIZ" ise, listelenen hataları düzelt, dosyayı güncelle, script tekrar "OK" verene kadar (a)-(c) adımlarını tekrarla.
    d. Sadece script "OK" dedikten SONRA nihai yanıtı (tablo + varsa tablo dışı açıklama + zorunlu uyarı bloğu) kullanıcıya yaz.
+   e. **Bash aracı izin/onay gerektirdiği için script hiç çalıştırılamazsa** (örn. bu oturumda Bash henüz onaylanmamış): script'i atlayıp tabloyu sanki doğrulanmış gibi sunma. Bunun yerine tabloyu adım 0-7'deki kurallara göre kendin elle kontrol et (kolon sayısı/adları, Kanıt Durumu ve Risk hücrelerinde geçerli etiketler var mı) ve nihai yanıtın **en başına** büyük harfle şunu yaz: **"DOĞRULAMA: Script çalıştırılamadı (Bash izni yok) — tablo elle kontrol edildi, otomatik doğrulama atlandı."** Kullanıcıya isterse Bash'e onay verip script'i gerçekten çalıştırmanı isteyebileceğini belirt — bu, `patent-on-arastirma`'daki UNAVAILABLE/DEGRADED şeffaflık kuralıyla aynı mantık (bkz. `docs/evidence-protokolu.md`): araç çalışmadıysa bunu sessizce gizleme, açıkça söyle.
 
 ## Çıktı formatı
 
